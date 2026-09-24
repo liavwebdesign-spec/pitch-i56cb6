@@ -205,7 +205,7 @@
 
     /* MV:g02, ported from export/g02.html: the portrait and the video pictures are painted from the bottom up */
     if (ok && !editing) {
-      $$(".about-img img, .vbtn").forEach(function (el) {
+      $$(".about-img img, .vbtn, .pain-photo img, .gate-media img").forEach(function (el) {
         var state = { val: 0 }; el.classList.add("paint");
         G.to(state, { val: 100, ease: "none", scrollTrigger: { trigger: el, start: "top 85%", end: "top 25%", scrub: true },
           onUpdate: function () { el.style.setProperty("--reveal", state.val + "%"); } });
