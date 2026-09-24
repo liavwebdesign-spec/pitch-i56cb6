@@ -192,9 +192,15 @@
       $$("main .sec h2, main .close h2").forEach(function (h) {
         var sp = new window.SplitText(h, { type: "words" });
         // the export's inset(100% 0 0 0) ends on the letter box and cuts the tails of ק ן ף ץ; the mask here reaches past it
-        G.fromTo(sp.words, { clipPath: "inset(125% -6% -25% -6%)", opacity: 0 }, { clipPath: "inset(-20% -6% -25% -6%)", opacity: 1, stagger: 0.5, ease: "none", scrollTrigger: { trigger: h, start: "top 80%", end: "top 30%", scrub: 1 } });
+        // a heading inside the pinned method stage names it as its pinnedContainer, or a refresh mid-page measures it
+        // with the pin's 240% added (audit st-refresh, 24.9.2026)
+        var pc = h.closest(".method-stage");
+        G.fromTo(sp.words, { clipPath: "inset(125% -6% -25% -6%)", opacity: 0 }, { clipPath: "inset(-20% -6% -25% -6%)", opacity: 1, stagger: 0.5, ease: "none", scrollTrigger: { trigger: h, start: "top 80%", end: "top 30%", scrub: 1, pinnedContainer: pc && method && method.classList.contains("is-pinning") ? pc : undefined } });
       });
       ST.refresh();
+      // and once more when the page has settled: the first measure after the split came out 80 to 110px short at the
+      // closing heading, varying from load to load, while any later refresh agreed with itself (audit st-refresh)
+      setTimeout(function () { ST.refresh(); }, 900);
     });
 
     /* MV:g02, ported from export/g02.html: the portrait and the video pictures are painted from the bottom up */
