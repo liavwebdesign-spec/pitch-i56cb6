@@ -116,7 +116,7 @@
       var words = fillP.textContent.trim().split(/\s+/); fillP.textContent = "";
       var spans = words.map(function (w, i) { var s = document.createElement("span"); s.className = "w"; s.textContent = w; fillP.appendChild(s); if (i < words.length - 1) fillP.appendChild(document.createTextNode(" ")); return s; });
       G.timeline({ scrollTrigger: { trigger: fillP, start: "top 80%", end: "bottom 45%", scrub: 0.4 } })
-        .fromTo(spans, { color: "#636A77" }, { color: "#111111", duration: 0.4, stagger: 0.35, ease: "none" }, 0);
+        .fromTo(spans, { color: "#675A4B" }, { color: "#1C1A17", duration: 0.4, stagger: 0.35, ease: "none" }, 0);
     }
 
     /* MV:g22, the method: the circle is pinned, the arc colors from station to station and closes back on agreement */
