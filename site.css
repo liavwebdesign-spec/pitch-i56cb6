@@ -13,13 +13,14 @@
 @font-face { font-family: "Google Sans"; src: url("fonts/GoogleSans-Latin.woff2") format("woff2"); font-weight: 400 700; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 
 :root {
-  /* palette A, "field" (Liav, 24.9.2026, after Avinoam: "the colors don't sit right"): warm paper and ink from the real
-     colors of his videos (skin, brown, beige, office grey), and one energetic orange for actions and the question mark.
-     The names --gold* stay as the accent's names so every rule keeps its role. Ink text on the orange (4.9; white 3.5 fails) */
+  /* yellow palette A, "sun on paper" (24.9.2026: Avinoam "connects more with yellow tones", Liav chose A). Warm paper and
+     ink, and a sunflower yellow for actions, the highlighter and the question mark. Yellow is a SURFACE only: on paper it
+     reads at 1.35, so it never carries text; ink on it reads at 11.2. Small accent text is the dark mustard (5.4 on paper,
+     4.65 on sand). The names --gold* stay as the accent's names so every rule keeps its role */
   --ink: #1C1A17; --ink-2: #2E2A25; --muted: #6F6252; --muted-strong: #5A4D40;
-  --surface: #F3EDE3; --surface-muted: #E6DAC7; --card: #FBF8F3;
-  --dark: #1C1A17; --dark-2: #2A2622; --on-dark: #F3EDE3; --muted-dark: #B9AE9F;
-  --gold: #F0521C; --gold-2: #D9460F; --gold-text: #A93A0B;
+  --surface: #F4EEE2; --surface-muted: #E8DDC8; --card: #FBF8F2;
+  --dark: #1C1A17; --dark-2: #2A2622; --on-dark: #F4EEE2; --muted-dark: #B9AE9F;
+  --gold: #FFC72C; --gold-2: #F2B705; --gold-text: #7A5C00;
   --tint-12: color-mix(in srgb, var(--gold) 12%, var(--surface));
   --err: #9B1C31;
   /* frame (tokens.json) */
@@ -84,7 +85,7 @@ section[id] { scroll-margin-top: 96px; }
 .btn-primary, .btn-ink, .btn-ghost { transition: transform .3s var(--e), background-color .2s var(--e), box-shadow .2s var(--e), color .2s var(--e); }
 .btn-lg { min-height: 56px; padding: 14px 28px; }
 .btn-block { width: 100%; }
-.btn-primary { background: var(--gold); color: var(--ink); box-shadow: 0 8px 24px rgba(240, 82, 28, .32); }
+.btn-primary { background: var(--gold); color: var(--ink); box-shadow: 0 8px 24px rgba(255, 199, 44, .32); }
 .btn-ink { background: var(--ink); color: var(--on-dark); }
 .btn-ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px rgba(28, 26, 23, .22); }
 .btn svg { width: 20px; height: 20px; flex: none; }
@@ -179,7 +180,7 @@ section[id] { scroll-margin-top: 96px; }
 /* the gold question mark of the logo, whole, behind the card: the card sits on it, the hook rises above it */
 /* the gold question mark of the logo, whole: the hook rises above the card, the card sits on the stem, the dot shows below */
 .hero-q { position: relative; height: min(78vh, 720px); }
-.hero-mark { position: absolute; z-index: 0; inset-block: 0; inset-inline: 0; margin-inline: auto; height: 100%; width: auto; color: color-mix(in srgb, var(--gold) 82%, var(--surface)); pointer-events: none; }
+.hero-mark { position: absolute; z-index: 0; inset-block: 0; inset-inline: 0; margin-inline: auto; height: 100%; width: auto; color: var(--gold); pointer-events: none; }
 .qcard { position: absolute; z-index: 1; top: 22%; inset-inline: 0; margin-inline: auto; width: min(92%, 460px); display: grid; gap: 16px; padding: clamp(20px, 2vw, 32px); border-radius: var(--r-card); background: var(--card); box-shadow: var(--shadow-lift); }
 .qcard-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: var(--fs-small); color: var(--muted); }
 .qcard-tag { padding: 4px 12px; border-radius: var(--r-control); background: var(--tint-12); color: var(--gold-text); font-weight: 500; }
@@ -275,11 +276,11 @@ section[id] { scroll-margin-top: 96px; }
 .ring { width: 100%; height: 100%; overflow: visible; transform: rotate(-90deg) scaleY(-1); }
 .ring circle { fill: none; stroke-width: 3; }
 .ring-track { stroke: #DCCFBC; }
-.ring-draw { stroke: var(--gold); stroke-width: 6; stroke-linecap: round; }
+.ring-draw { stroke: var(--gold-text); stroke-width: 6; stroke-linecap: round; } /* yellow on paper reads at 1.35: the arc is the mustard */
 .ring-st { position: absolute; width: 0; height: 0; }
 .ring-st i { position: absolute; top: -11px; inset-inline-end: -11px; width: 22px; height: 22px; border-radius: 50%; background: var(--surface); box-shadow: inset 0 0 0 3px #D3C6B3; transition: background-color .3s var(--e), box-shadow .3s var(--e), transform .3s var(--e); }
 .ring-st b { position: absolute; top: 20px; inset-inline-end: 0; transform: translateX(-50%); white-space: nowrap; font-size: calc(clamp(18px, 0.6vw + 12px, 26px) * var(--a11y-scale)); font-weight: 500; color: #A39584; transition: color .3s var(--e); }
-.ring-st.lit i { background: var(--gold); box-shadow: 0 0 0 6px rgba(240, 82, 28, .22); transform: scale(1.1); }
+.ring-st.lit i { background: var(--gold); box-shadow: inset 0 0 0 3px var(--gold-text), 0 0 0 6px rgba(255, 199, 44, .3); transform: scale(1.1); }
 .ring-st.lit b { color: var(--ink); }
 /* stations on the circle, counter-clockwise from the top: forward in a right-to-left page (inset-inline-end is the left edge in RTL) */
 .st-0 { top: 5%; inset-inline-end: 50%; }
@@ -314,7 +315,7 @@ section[id] { scroll-margin-top: 96px; }
 .hex-grid polygon { fill: none; stroke: rgba(243, 237, 227, .14); stroke-width: 1; }
 .hex-grid polygon.outer { stroke: rgba(243, 237, 227, .28); }
 .hex-grid line { stroke: rgba(243, 237, 227, .14); stroke-width: 1; }
-.hex-shape { fill: rgba(240, 82, 28, .22); stroke: var(--gold); stroke-width: 2.5; stroke-linejoin: round; }
+.hex-shape { fill: rgba(255, 199, 44, .22); stroke: var(--gold); stroke-width: 2.5; stroke-linejoin: round; }
 .hex-dots circle { fill: var(--gold); }
 .hex-labels text { font-family: var(--f); fill: #D3C6B3; font-size: 15px; font-weight: 500; }
 .hex-labels text.val { fill: var(--on-dark); font-family: var(--f-display); font-size: 22px; font-weight: 700; }
@@ -542,8 +543,11 @@ section[id] { scroll-margin-top: 96px; }
 .close h2 { font-size: var(--fs-stmt); max-width: 16ch; }
 .close .lead { color: var(--ink); margin-inline: auto; } /* ink on the orange: 4.9; ink-2 was 4.0 */
 .close .micro { color: var(--ink); }
-.close-q { position: absolute; z-index: 0; inset-block: 8% 8%; inset-inline-end: 6%; height: 84%; width: auto; color: var(--ink); opacity: .07; }
-@media (max-width: 767px) { .close-q { display: none; } }
+/* the pattern (Liav, 24.9.2026): the logo's question mark scattered at angles, tone on tone, drifting slowly. A mask, so the
+   tone is whatever sits under it; replaces the one big faded mark that was here */
+.close::before { content: ""; position: absolute; inset: -240px 0 0; z-index: 0; background: var(--ink); opacity: .08; pointer-events: none;
+  -webkit-mask: url("images/q-pattern.svg") 0 0 / 240px 240px repeat; mask: url("images/q-pattern.svg") 0 0 / 240px 240px repeat; animation: drift 40s linear infinite; }
+@keyframes drift { to { transform: translateY(240px); } }
 
 /* ---------- footer (MV:ft8): the brand signature ---------- */
 .ft { position: relative; overflow: hidden; background: var(--surface-muted); color: var(--muted-strong); padding: var(--sec) var(--gutter) 88px; }
@@ -612,7 +616,7 @@ html.bar-on .fabs { transform: translateY(-80px); }
 .nf-guess small { font-size: var(--fs-small); color: var(--muted-dark); }
 .nf-guess b { grid-column: 1; font-size: var(--fs-h3); }
 .nf-guess code { grid-column: 1; font-size: var(--fs-small); color: var(--muted-dark); text-align: start; }
-.nf-guess code mark { background: rgba(240, 82, 28, .55); color: inherit; border-radius: 3px; }
+.nf-guess code mark { background: rgba(255, 199, 44, .55); color: inherit; border-radius: 3px; }
 .nf-guess .i-arr { grid-row: 1 / span 3; grid-column: 2; width: 24px; height: 24px; }
 @media (hover: hover) and (pointer: fine) { .nf-guess:hover { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(28, 26, 23, .22); } }
 .nf-s { font-size: var(--fs-small); font-weight: 500; }
@@ -624,7 +628,7 @@ html.bar-on .fabs { transform: translateY(-80px); }
 .nf-list a { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; min-height: 48px; padding: 12px 16px; border-radius: var(--r-control); text-decoration: none; transition: background-color .15s var(--e); }
 .nf-list a:focus-visible, .nf-list a:hover { background: var(--surface); }
 .nf-list a span { font-weight: 500; }
-.nf-list mark { background: rgba(240, 82, 28, .3); color: inherit; border-radius: 3px; }
+.nf-list mark { background: rgba(255, 199, 44, .3); color: inherit; border-radius: 3px; }
 .nf-empty { padding: 16px; border-radius: var(--r-control); background: var(--surface); color: var(--muted-strong); }
 .nf-empty[hidden] { display: none; }
 .nf-out, .qi-go { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
@@ -663,7 +667,7 @@ html.a11y-contrast .btn-primary { background: #FFE14D !important; color: #000 !i
 html.a11y-gray { filter: grayscale(1); }
 html.a11y-invert { filter: invert(1) hue-rotate(180deg); }
 html.a11y-invert img, html.a11y-invert video { filter: invert(1) hue-rotate(180deg); }
-html.a11y-links a { text-decoration: underline !important; text-underline-offset: 3px; outline: 2px solid rgba(240, 82, 28, .7); outline-offset: 2px; }
+html.a11y-links a { text-decoration: underline !important; text-underline-offset: 3px; outline: 2px solid rgba(255, 199, 44, .7); outline-offset: 2px; }
 html.a11y-font body, html.a11y-font h1, html.a11y-font h2, html.a11y-font h3, html.a11y-font .btn, html.a11y-font button, html.a11y-font input { font-family: Arial, sans-serif !important; }
 html.a11y-spacing p, html.a11y-spacing li { line-height: 1.9 !important; word-spacing: .12em; }
 html.a11y-still *, html.a11y-still *::before, html.a11y-still *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
@@ -687,10 +691,15 @@ html.a11y-still *, html.a11y-still *::before, html.a11y-still *::after { animati
 @media (hover: hover) and (pointer: fine) { .vbtn:hover { transform: scale(.97); } }
 
 /* ---------- 1 · marks by a coach's hand on the turning word (MV:g42, ported from export/g42.html; 24.9.2026) ---------- */
-.hd-mark { position: relative; display: inline-block; white-space: nowrap; }
-.hd-mark svg { position: absolute; inset-inline: -6%; bottom: -.28em; width: 112%; height: .42em; overflow: visible; pointer-events: none; }
-.hd-mark.circle svg { inset: -22% -10%; width: 120%; height: 150%; bottom: auto; }
-.hd-mark path { fill: none; stroke: var(--gold); stroke-width: 6; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+/* with the yellow palette the underline became a highlighter swipe behind the lower half of the word (a coach running a
+   marker over a script), and the circle stayed a pen line: ink on paper, yellow on the dark quiz, ink on the yellow band */
+.hd-mark { position: relative; display: inline-block; white-space: nowrap; isolation: isolate; }
+.hd-mark > span { position: relative; z-index: 1; }
+.hd-mark svg { position: absolute; z-index: 0; inset-inline: -5%; bottom: .1em; width: 110%; height: .5em; overflow: visible; pointer-events: none; }
+.hd-mark path { fill: none; stroke: var(--gold); stroke-width: .44em; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.hd-mark.circle svg { z-index: 2; inset: -22% -10%; width: 120%; height: 150%; bottom: auto; }
+.hd-mark.circle path { stroke: var(--ink); stroke-width: 5px; }
+.quiz-sec .hd-mark.circle path { stroke: var(--gold); }
 .close .hd-mark path { stroke: var(--ink); }
 
 /* ---------- 02b from the field: a loop from his own videos. A placeholder until the source files arrive (Liav, 24.9.2026:
@@ -707,6 +716,7 @@ html.a11y-still *, html.a11y-still *::before, html.a11y-still *::after { animati
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: .01ms !important; transition-delay: 0s !important; }
   .js .rv, .js .rv.is-in { opacity: 1; animation: none; }
+  .close::before { animation: none; }
   .open-anim [data-open], .open-anim .hero-mark, .js .cmosaic .cshot, .js .field.talk p { opacity: 1; translate: none; animation: none; }
   .wave-hush { opacity: 1; } .wave-bars i:nth-child(n+12):nth-child(-n+22) { height: 3px; } /* still: a talk, a flat stretch, a talk */
   .paint { -webkit-mask-image: none; mask-image: none; }
