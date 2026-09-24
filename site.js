@@ -18,6 +18,27 @@
 
   $$("[data-year]").forEach(function (e) { e.textContent = new Date().getFullYear(); });
 
+  /* ---------- 3 · the six muscles, drawn for this site in one line, 24 by 24 (24.9.2026). Not a library set ---------- */
+  var MUSCLE = {
+    "הסכמה": '<circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2.5 20c0-3.3 2.4-5.8 5.5-5.8 1.6 0 3 .6 4 1.7"/><path d="M10.5 20c0-3.3 2.4-5.8 5.5-5.8s5.5 2.5 5.5 5.8"/>',
+    "שאלה": '<path d="M4 4.5h16A1.5 1.5 0 0 1 21.5 6v9.5A1.5 1.5 0 0 1 20 17h-7l-4.5 3.5V17H4a1.5 1.5 0 0 1-1.5-1.5V6A1.5 1.5 0 0 1 4 4.5z"/><path d="M9.9 8.9a2.1 2.1 0 1 1 2.9 1.9c-.5.3-.8.7-.8 1.3v.4"/><circle cx="12" cy="14.3" r=".35"/>',
+    "הקשבה": '<path d="M6.5 9.5a5.5 5.5 0 0 1 11 0c0 2.7-1.9 3.6-2.7 5-.6 1.1-.6 2.3-1.5 3.3a2.8 2.8 0 0 1-4.8-1.6"/><path d="M9.7 9.9a2.3 2.3 0 1 1 3.4 2"/>',
+    "ידע": '<path d="M2.5 5.5c2.4-1 5.6-.9 9.5 1 3.9-1.9 7.1-2 9.5-1v13c-2.4-1-5.6-.9-9.5 1-3.9-1.9-7.1-2-9.5-1z"/><path d="M12 6.5v13"/>',
+    "אומץ לסגור": '<path d="M15 3.5l5.5 5.5-9.5 9.5-6 1.5 1.5-6z"/><path d="M13 5.5l5.5 5.5"/><path d="M3 22h7"/>',
+    "זיהוי התנגדות": '<circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.4 15.4L21 21"/><path d="M10.5 7.4v3.6"/><circle cx="10.5" cy="13.7" r=".35"/>'
+  };
+  $$(".mi-slot").forEach(function (el) { var k = el.getAttribute("data-muscle"); if (MUSCLE[k]) el.outerHTML = '<svg class="mi" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' + MUSCLE[k] + '</svg>'; });
+
+  /* ---------- 4 · the wave that goes silent: bars from a fixed seed, so every visit draws the same voice ---------- */
+  $$(".wave").forEach(function (w) {
+    var bars = $(".wave-bars", w), seed = 7;
+    for (var i = 0; i < 34; i++) { seed = (seed * 9301 + 49297) % 233280; var r = seed / 233280, e = document.createElement("i"); e.style.setProperty("--h", (0.25 + r * 0.75).toFixed(2)); e.style.setProperty("--d", (-(r * 0.7)).toFixed(2) + "s"); bars.appendChild(e); }
+    inView(w, function () { w.classList.add("run"); }, 0.9);
+  });
+
+  /* ---------- 2 · the chat: the bubbles come in when the dialogue is on screen (and, in the pinned scene, when its step is on) ---------- */
+  $$(".field.talk").forEach(function (f) { inView(f, function () { f.classList.add("run"); }, 0.85); });
+
   /* ---------- the page opening (24.9.2026): once, on arrival, about a second, and then the first screen is still ----------
      The head adds html.open-anim only without reduced motion and outside site-edit; the CSS shows everything after 2.5s
      if this never runs. A heading with data-lines rises line by line from a mask; the hero's question mark draws itself. */
@@ -30,7 +51,10 @@
     // the toolbar's "stop animations" pauses GSAP; an opening that never plays would leave the headline clipped
     if (!G || !items.length || html.classList.contains("a11y-still")) return done();
     if (window.DrawSVGPlugin) G.registerPlugin(window.DrawSVGPlugin);
-    var tl = window.__open = G.timeline({ defaults: { ease: "power3.out" }, onComplete: function () { done(); G.set(items.concat(mark ? [mark] : []), { clearProps: "opacity,transform,clipPath" }); } });
+    // 1 · the coach's mark under "לשאול" is the last stroke of the opening, once the lines are out of their masks
+    var hm = window.DrawSVGPlugin && $(".hero h1 .hd-mark path");
+    if (hm) G.set(hm, { drawSVG: "0% 0%" });
+    var tl = window.__open = G.timeline({ defaults: { ease: "power3.out" }, onComplete: function () { done(); G.set(items.concat(mark ? [mark] : []), { clearProps: "opacity,transform,clipPath" }); if (hm) G.to(hm, { drawSVG: "0% 100%", duration: 0.6, ease: "power2.inOut" }); } });
     items.forEach(function (el, i) {
       var at = Math.min(i, 6) * 0.09;
       if (el.matches("h1")) {
@@ -165,6 +189,10 @@
         var p = pt(i, R + 42), up = i === 0 ? -8 : (i === 3 ? 10 : 0), lo = m[1] === 38 ? " is-lo" : "";
         var v = mk("text", { x: p[0].toFixed(1), y: (p[1] + up - 6).toFixed(1), "text-anchor": "middle", "class": "val" + lo }, labels); v.textContent = String(m[1]);
         var l = mk("text", { x: p[0].toFixed(1), y: (p[1] + up + 16).toFixed(1), "text-anchor": "middle", "class": lo.trim() }, labels); l.textContent = m[0];
+        // 3 · the muscle's icon on the reading side of its name (RTL: to the right of the centered name)
+        var w = l.getComputedTextLength ? l.getComputedTextLength() : 60;
+        var g = mk("g", { "class": "hex-ic" + lo, transform: "translate(" + (p[0] + w / 2 + 6).toFixed(1) + "," + (p[1] + up + 1).toFixed(1) + ") scale(.72)" }, labels);
+        g.innerHTML = MUSCLE[m[0]] || "";
         return v;
       });
       var draw6 = function (t) {
@@ -179,7 +207,8 @@
         tl2.from(rings, { scale: 0, svgOrigin: C + " " + C, opacity: 0, duration: 0.5, stagger: 0.08, ease: "power2.out" }, 0)
           .from(spokes, { drawSVG: "0% 0%", duration: 0.4, stagger: 0.05, ease: "none" }, 0.1)
           .to(st, { t: 1, duration: 1, ease: "power2.out", onUpdate: function () { draw6(st.t); } }, 0.35)
-          .from(chips, { opacity: 0, y: 16, duration: 0.3, stagger: 0.1, ease: "power2.out" }, 1.1);
+          .from(chips, { opacity: 0, y: 16, duration: 0.3, stagger: 0.1, ease: "power2.out" }, 1.1)
+          .from($$(".hex-ic path, .hex-ic circle", hex), { drawSVG: "0%", duration: 0.5, stagger: 0.03, ease: "power2.inOut" }, 0.9);
       } else draw6(1);
     }
 
@@ -196,6 +225,11 @@
         // with the pin's 240% added (audit st-refresh, 24.9.2026)
         var pc = h.closest(".method-stage");
         G.fromTo(sp.words, { clipPath: "inset(125% -6% -25% -6%)", opacity: 0 }, { clipPath: "inset(-20% -6% -25% -6%)", opacity: 1, stagger: 0.5, ease: "none", scrollTrigger: { trigger: h, start: "top 80%", end: "top 30%", scrub: 1, pinnedContainer: pc && method && method.classList.contains("is-pinning") ? pc : undefined } });
+      });
+      // 1 · MV:g42 (export/g42.html): the coach's mark draws once the words of its heading are up
+      if (window.DrawSVGPlugin) $$("main .sec h2 .hd-mark path, main .close h2 .hd-mark path").forEach(function (p) {
+        var h = p.closest("h2");
+        G.fromTo(p, { drawSVG: "0% 0%" }, { drawSVG: "0% 100%", duration: 0.75, ease: "power2.inOut", scrollTrigger: { trigger: h, start: "top 45%", toggleActions: "play none none none", pinnedContainer: h.closest(".method-stage") && method && method.classList.contains("is-pinning") ? h.closest(".method-stage") : undefined } });
       });
       ST.refresh();
       // and once more when the page has settled: the first measure after the split came out 80 to 110px short at the
