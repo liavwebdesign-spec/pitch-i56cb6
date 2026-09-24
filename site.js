@@ -18,6 +18,35 @@
 
   $$("[data-year]").forEach(function (e) { e.textContent = new Date().getFullYear(); });
 
+  /* ---------- the page opening (24.9.2026): once, on arrival, about a second, and then the first screen is still ----------
+     The head adds html.open-anim only without reduced motion and outside site-edit; the CSS shows everything after 2.5s
+     if this never runs. A heading with data-lines rises line by line from a mask; the hero's question mark draws itself. */
+  (function () {
+    var G = window.gsap, items = $$("[data-open]"), mark = $(".hero-mark");
+    var done = function () { html.classList.remove("open-anim"); };
+    // the mask reaches past the letter box: at line-height 1.02 the tails of ק ן ף ץ and the tops of ל sit outside it
+    var SHUT = "inset(125% -6% -25% -6%)", OPEN = "inset(-20% -6% -25% -6%)";
+    if (!html.classList.contains("open-anim")) return;
+    // the toolbar's "stop animations" pauses GSAP; an opening that never plays would leave the headline clipped
+    if (!G || !items.length || html.classList.contains("a11y-still")) return done();
+    if (window.DrawSVGPlugin) G.registerPlugin(window.DrawSVGPlugin);
+    var tl = window.__open = G.timeline({ defaults: { ease: "power3.out" }, onComplete: function () { done(); G.set(items.concat(mark ? [mark] : []), { clearProps: "opacity,transform,clipPath" }); } });
+    items.forEach(function (el, i) {
+      var at = Math.min(i, 6) * 0.09;
+      if (el.matches("h1")) {
+        var lines = el.hasAttribute("data-lines") ? $$(":scope > span", el) : [el];
+        tl.set(el, { opacity: 1 }, at).fromTo(lines, { clipPath: SHUT, y: 28 }, { clipPath: OPEN, y: 0, duration: 0.9, stagger: 0.12, clearProps: "clipPath,transform" }, at);
+      } else tl.fromTo(el, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6 }, at + 0.1);
+    });
+    var path = mark && getComputedStyle(mark).display !== "none" && $("path", mark);
+    if (path && window.DrawSVGPlugin) {
+      tl.set(mark, { opacity: 1 }, 0.1)
+        .fromTo(path, { drawSVG: "0% 0%", fillOpacity: 0, stroke: "currentColor", strokeWidth: 3 }, { drawSVG: "0% 100%", duration: 0.8, ease: "power2.inOut" }, 0.1)
+        .to(path, { fillOpacity: 1, duration: 0.35, ease: "power2.out" }, 0.75)
+        .to(path, { strokeWidth: 0, duration: 0.2 }, 0.95);
+    } else if (mark) tl.fromTo(mark, { opacity: 0 }, { opacity: 1, duration: 0.6 }, 0.1);
+  })();
+
   /* ---------- reveal: groups stagger 70ms inside themselves only ---------- */
   $$(".rv").forEach(function (el) {
     var sibs = $$(":scope > .rv", el.parentElement); var i = sibs.indexOf(el);
@@ -78,7 +107,7 @@
   /* ---------- the moves need GSAP; without it (or with reduced motion) every final state is already in the markup ---------- */
   function moves() {
     var G = window.gsap, ST = window.ScrollTrigger;
-    var ok = !!(G && ST) && !reduced;
+    var ok = !!(G && ST) && !reduced && !html.classList.contains("a11y-still");
     if (G && ST) { G.registerPlugin(ST); if (window.DrawSVGPlugin) G.registerPlugin(window.DrawSVGPlugin); }
 
     /* MV:g48, the pain scene fills word by word. Words only: Hebrew is never split into letters */
@@ -154,9 +183,58 @@
       } else draw6(1);
     }
 
+    /* MV:g04 level A, ported from export/g04.html: the words of each section heading rise out of a mask at the pace of
+       the scroll. Split into words only (the export splits lines too): words do not change when the width or the
+       toolbar's text size does, so nothing has to be re-split */
+    // split after the fonts are in: SplitText measures the words, and before Talent arrives it measures the fallback
+    if (ok && window.SplitText && !editing) (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(function () {
+      G.registerPlugin(window.SplitText);
+      $$("main .sec h2, main .close h2").forEach(function (h) {
+        var sp = new window.SplitText(h, { type: "words" });
+        // the export's inset(100% 0 0 0) ends on the letter box and cuts the tails of ק ן ף ץ; the mask here reaches past it
+        G.fromTo(sp.words, { clipPath: "inset(125% -6% -25% -6%)", opacity: 0 }, { clipPath: "inset(-20% -6% -25% -6%)", opacity: 1, stagger: 0.5, ease: "none", scrollTrigger: { trigger: h, start: "top 80%", end: "top 30%", scrub: 1 } });
+      });
+      ST.refresh();
+    });
+
+    /* MV:g02, ported from export/g02.html: the portrait and the video pictures are painted from the bottom up */
+    if (ok && !editing) {
+      $$(".about-img img, .vbtn").forEach(function (el) {
+        var state = { val: 0 }; el.classList.add("paint");
+        G.to(state, { val: 100, ease: "none", scrollTrigger: { trigger: el, start: "top 85%", end: "top 25%", scrub: true },
+          onUpdate: function () { el.style.setProperty("--reveal", state.val + "%"); } });
+      });
+    }
+
     if (ok) { if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { ST.refresh(); }); addEventListener("load", function () { ST.refresh(); }); }
   }
   if (document.readyState === "complete") moves(); else addEventListener("load", moves);
+
+  /* the toolbar's "stop animations", pressed mid-page: every entrance jumps to its end and stays there (the pin keeps its
+     place, so the page does not jump). A heading paused halfway into its mask would otherwise stay cut */
+  document.addEventListener("a11y:still", function (e) {
+    if (!e.detail || !window.gsap) return;
+    if (window.__open) window.__open.progress(1);
+    if (window.ScrollTrigger) window.ScrollTrigger.getAll().forEach(function (t) { if (!t.pin && t.animation) { t.animation.progress(1); t.kill(false); } });
+    $$(".rv").forEach(function (el) { el.classList.add("is-in"); });
+    var w = $(".cmosaic"); if (w) w.classList.add("ready");
+  });
+
+  /* ---------- MV:b57's entrance (export/b57.html): the comment frames rise one after another when the wall is on screen ---------- */
+  var wall = $(".cmosaic");
+  if (wall) { $$(".cshot", wall).forEach(function (c, i) { c.style.setProperty("--d", (i * 70) + "ms"); }); inView(wall, function () { wall.classList.add("ready"); }, 0.85); }
+
+  /* ---------- MV:b02, ported from export/b02.html: a number counts once when it comes on screen. The markup holds the real
+     number (no script, no count). It counts with reduced motion too: a changing number is text, not movement
+     (engine/motion.md 4; the export skipped it) ---------- */
+  $$("[data-count]").forEach(function (el) {
+    var to = +el.getAttribute("data-count"), sfx = el.getAttribute("data-suffix") || ""; el.textContent = "0" + sfx;
+    inView(el, function () {
+      var t0 = null;
+      var step = function (ts) { if (!t0) t0 = ts; var p = Math.min((ts - t0) / 900, 1); el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3))) + sfx; if (p < 1) requestAnimationFrame(step); };
+      requestAnimationFrame(step);
+    }, 0.8);
+  });
 
   /* ---------- videos: the TikTok player loads only on a click (no request to TikTok before it) ---------- */
   $$(".vbtn").forEach(function (b) {

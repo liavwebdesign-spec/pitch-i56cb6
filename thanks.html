@@ -7,10 +7,10 @@
 <title>קיבלתי | פיצ׳</title>
 <meta name="description" content="הפרטים התקבלו.">
 <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="fonts/TalentFS-Black.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/TalentFS-Medium.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/TalentFS-Light.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="site.css?v=e6861825">
-<script>document.documentElement.classList.add("js")</script>
+<link rel="stylesheet" href="site.css?v=75f836c8">
+<script>document.documentElement.classList.add("js");if(!matchMedia("(prefers-reduced-motion: reduce)").matches&&!/[?&]edit=1/.test(location.search))document.documentElement.classList.add("open-anim")</script>
 </head>
 <body data-page="thanks">
 <a class="skip" href="#main">דילוג לתוכן</a>
@@ -35,24 +35,24 @@
 <section class="page-sec thanks" data-thanks aria-labelledby="ty-h">
   <div class="thanks-in">
     <svg class="ty-check" viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="26"/><path d="M18 29l7 7 14-15"/></svg>
-    <h1 id="ty-h" class="ty-h"><span data-for="book">נכנסת לרשימה</span><span data-for="talk">קיבלתי</span><span data-name-wrap>, <span data-name></span></span>.</h1>
+    <h1 id="ty-h" class="ty-h" data-open><span data-for="book">נכנסת לרשימה</span><span data-for="talk">קיבלתי</span><span data-name-wrap>, <span data-name></span></span>.</h1>
     <div data-for="book">
-      <p class="lead">הספר כבר כאן, ועותק ממנו בדרך למייל שלך.</p>
-      <ol class="ty-steps">
+      <p class="lead" data-open>הספר כבר כאן, ועותק ממנו בדרך למייל שלך.</p>
+      <ol class="ty-steps" data-open>
         <li class="is-done"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><div><h2 class="ty-step-h">נכנסת לרשימת ההמתנה</h2><p>היום, בשעה <span class="t" data-now>14:32</span></p></div></li>
         <li class="is-now"><i></i><div><h2 class="ty-step-h">הספר "הפוך גוטה"</h2><p><a href="book.html">לפתוח את הספר</a></p></div></li>
         <li><i></i><div><h2 class="ty-step-h">חדר הכושר נפתח</h2><p>מי שברשימה שומע ראשון.</p></div></li>
       </ol>
-      <div class="ty-more"><p class="ty-more-h">ואם אתה רוצה לדעת איפה אתה עומד</p><div><a class="btn btn-primary" href="book.html">לפתוח את הספר</a><a class="btn btn-ghost" href="quiz.html">למבחן הכושר</a></div></div>
+      <div class="ty-more" data-open><p class="ty-more-h">ואם אתה רוצה לדעת איפה אתה עומד</p><div><a class="btn btn-primary" href="book.html">לפתוח את הספר</a><a class="btn btn-ghost" href="quiz.html">למבחן הכושר</a></div></div>
     </div>
     <div data-for="talk">
-      <p class="lead">אני חוזר אליך בעצמי.</p>
-      <ol class="ty-steps">
+      <p class="lead" data-open>אני חוזר אליך בעצמי.</p>
+      <ol class="ty-steps" data-open>
         <li class="is-done"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><div><h2 class="ty-step-h">הפנייה אצלי</h2><p>היום, בשעה <span class="t" data-now>14:32</span></p></div></li>
         <li class="is-now"><i></i><div><h2 class="ty-step-h">שיחה קצרה</h2><p>אני מתקשר, ונבין יחד מה בדיוק אתה צריך.</p></div></li>
         <li><i></i><div><h2 class="ty-step-h">מתחילים לעבוד</h2><p>לפי מה שנסכם בשיחה.</p></div></li>
       </ol>
-      <div class="ty-more"><p class="ty-more-h">ובינתיים, אם בא לך לראות על מה נעבוד</p><div><a class="btn btn-primary" href="quiz.html">למבחן הכושר</a><a class="btn btn-ghost" href="index.html#method">השיטה</a></div></div>
+      <div class="ty-more" data-open><p class="ty-more-h">ובינתיים, אם בא לך לראות על מה נעבוד</p><div><a class="btn btn-primary" href="quiz.html">למבחן הכושר</a><a class="btn btn-ghost" href="index.html#method">השיטה</a></div></div>
     </div>
   </div>
 </section>
@@ -80,7 +80,8 @@
 <script src="vendor/gsap.min.js" defer></script>
 <script src="vendor/ScrollTrigger.min.js" defer></script>
 <script src="vendor/DrawSVGPlugin.min.js" defer></script>
-<script src="a11y.js?v=e6861825" defer></script>
-<script src="site.js?v=e6861825" defer></script>
+<script src="vendor/SplitText.min.js" defer></script>
+<script src="a11y.js?v=75f836c8" defer></script>
+<script src="site.js?v=75f836c8" defer></script>
 </body>
 </html>

@@ -6,8 +6,8 @@
    ============================================================================ */
 
 @font-face { font-family: "Talent"; src: url("fonts/TalentFS-Light.woff2") format("woff2"); font-weight: 300 400; font-display: swap; }
-@font-face { font-family: "Talent"; src: url("fonts/TalentFS-Medium.woff2") format("woff2"); font-weight: 500 600; font-display: swap; }
-@font-face { font-family: "Talent"; src: url("fonts/TalentFS-Black.woff2") format("woff2"); font-weight: 700 900; font-display: swap; }
+/* headings in Medium, never Black (Liav, 24.9.2026: "not the heaviest weight"); anything asked for as bold falls to Medium */
+@font-face { font-family: "Talent"; src: url("fonts/TalentFS-Medium.woff2") format("woff2"); font-weight: 500 900; font-display: swap; }
 
 :root {
   /* the skin's neutrals (storeos-quiet), fixed */
@@ -49,7 +49,7 @@ body { margin: 0; font-family: var(--f); font-weight: 300; font-size: var(--fs-b
 img, svg, video { display: block; max-width: 100%; }
 a { color: inherit; }
 strong, b { font-weight: 500; }
-h1, h2, .stat, .statement { font-family: var(--f); font-weight: 800; margin: 0; text-wrap: balance; }
+h1, h2, .stat, .statement { font-family: var(--f); font-weight: 500; margin: 0; text-wrap: balance; }
 h1 { font-size: var(--fs-h1); line-height: var(--lh-h1); }
 h2 { font-size: var(--fs-h2); line-height: var(--lh-h2); }
 h3 { font-family: var(--f); font-size: var(--fs-h3); line-height: var(--lh-h3); font-weight: 500; margin: 0; }
@@ -69,6 +69,7 @@ section[id] { scroll-margin-top: 96px; }
   font: inherit; font-size: var(--fs-body); font-weight: 500; line-height: 1.2; text-align: center; text-wrap: balance; text-decoration: none; cursor: pointer;
   transition: transform .18s var(--e), background-color .2s var(--e), box-shadow .2s var(--e), color .2s var(--e); }
 .btn:active { transform: scale(.98); }
+.btn-primary, .btn-ink, .btn-ghost { transition: transform .3s var(--e), background-color .2s var(--e), box-shadow .2s var(--e), color .2s var(--e); }
 .btn-lg { min-height: 56px; padding: 14px 28px; }
 .btn-block { width: 100%; }
 .btn-primary { background: var(--gold); color: var(--ink); box-shadow: 0 8px 24px rgba(201, 169, 97, .32); }
@@ -79,15 +80,21 @@ section[id] { scroll-margin-top: 96px; }
 .i-arr { transition: transform .2s var(--e); }
 @media (hover: hover) and (pointer: fine) {
   .btn:hover { transform: translateY(-1px); }
+  /* MV:lm7 (export/lm7.html), the CTA family: it grows and turns a little */
+  .btn-primary:not(.is-soon):hover, .btn-ink:hover, .btn-ghost:hover { transform: scale(1.06) rotate(2deg); }
   .btn-primary:hover { background: var(--gold-2); }
   .btn-ink:hover { background: var(--ink-2); }
   .btn-ghost:hover { box-shadow: inset 0 0 0 1.5px var(--ink); }
   .btn:hover .i-arr, .link-arrow:hover .i-arr { transform: translateX(-4px); }
   .is-soon:hover { transform: none; background: var(--gold); }
 }
-.link-arrow { display: inline-block; padding: 12px 0; border: 0; background: none; font: inherit; font-weight: 500; line-height: 1.5; text-align: start; color: var(--ink); text-decoration: underline; text-decoration-color: rgba(17, 17, 17, .25); text-underline-offset: 6px; cursor: pointer; transition: text-decoration-color .2s var(--e); }
+.link-arrow { position: relative; display: inline-block; padding: 12px 0; border: 0; background: none; font: inherit; font-weight: 500; line-height: 1.5; text-align: start; color: var(--ink); text-decoration: none; cursor: pointer; }
 .link-arrow svg { display: inline-block; width: 18px; height: 18px; margin-inline-start: 8px; vertical-align: -3px; }
-@media (hover: hover) and (pointer: fine) { .link-arrow:hover { text-decoration-color: var(--ink); } }
+/* MV:css02, ported from export/css02.html: a line that stretches under the link from the reading side (RTL-correct origin) */
+.link-arrow::after, .ft-nav a::after, .ft-social a::after, .ft-legal a::after { content: ""; position: absolute; inset-inline: 0; bottom: 8px; height: 2px; background: currentColor;
+  transform: scaleX(0); transform-origin: right; transition: transform .3s var(--e); }
+.ft-nav a, .ft-social a, .ft-legal a { position: relative; text-decoration: none; }
+@media (hover: hover) and (pointer: fine) { .link-arrow:hover::after, .ft-nav a:hover::after, .ft-social a:hover::after, .ft-legal a:hover::after { transform: scaleX(1); } }
 
 /* ---------- header: MV:hd3, a floating pill, with headroom ---------- */
 .hd { position: fixed; inset-block-start: 12px; inset-inline: var(--gutter); z-index: 60; transition: transform .4s var(--eio); }
@@ -237,7 +244,7 @@ section[id] { scroll-margin-top: 96px; }
 .ring-draw { stroke: var(--gold); stroke-width: 6; stroke-linecap: round; }
 .ring-st { position: absolute; width: 0; height: 0; }
 .ring-st i { position: absolute; top: -11px; inset-inline-end: -11px; width: 22px; height: 22px; border-radius: 50%; background: var(--surface); box-shadow: inset 0 0 0 3px #D1D5DB; transition: background-color .3s var(--e), box-shadow .3s var(--e), transform .3s var(--e); }
-.ring-st b { position: absolute; top: 20px; inset-inline-end: 0; transform: translateX(-50%); white-space: nowrap; font-size: calc(clamp(18px, 0.6vw + 12px, 26px) * var(--a11y-scale)); font-weight: 800; color: #9CA3AF; transition: color .3s var(--e); }
+.ring-st b { position: absolute; top: 20px; inset-inline-end: 0; transform: translateX(-50%); white-space: nowrap; font-size: calc(clamp(18px, 0.6vw + 12px, 26px) * var(--a11y-scale)); font-weight: 500; color: #9CA3AF; transition: color .3s var(--e); }
 .ring-st.lit i { background: var(--gold); box-shadow: 0 0 0 6px rgba(201, 169, 97, .22); transform: scale(1.1); }
 .ring-st.lit b { color: var(--ink); }
 /* stations on the circle, counter-clockwise from the top: forward in a right-to-left page (inset-inline-end is the left edge in RTL) */
@@ -276,7 +283,7 @@ section[id] { scroll-margin-top: 96px; }
 .hex-shape { fill: rgba(201, 169, 97, .22); stroke: var(--gold); stroke-width: 2.5; stroke-linejoin: round; }
 .hex-dots circle { fill: var(--gold); }
 .hex-labels text { font-family: var(--f); fill: #D4D4D4; font-size: 15px; font-weight: 500; }
-.hex-labels text.val { fill: var(--on-dark); font-size: 22px; font-weight: 800; }
+.hex-labels text.val { fill: var(--on-dark); font-size: 22px; font-weight: 500; }
 .hex-labels text.is-lo { fill: #9A9A9A; }
 .chip { position: absolute; z-index: 1; display: inline-flex; align-items: baseline; gap: 6px; padding: 10px 16px; border-radius: var(--r-control); background: var(--surface); color: var(--ink); font-size: var(--fs-small); box-shadow: 0 16px 40px rgba(0, 0, 0, .35); white-space: nowrap; }
 .chip b { font-weight: 500; }
@@ -284,7 +291,7 @@ section[id] { scroll-margin-top: 96px; }
 .chip-lo { bottom: 16%; inset-inline-end: -4%; }
 .chip-score { bottom: 0; inset-inline-start: 6%; }
 .chip-score .sc { unicode-bidi: isolate; }
-.chip-score b { font-size: calc(26px * var(--a11y-scale)); line-height: 1; font-weight: 800; }
+.chip-score b { font-size: calc(26px * var(--a11y-scale)); line-height: 1; font-weight: 500; }
 .chip-score small { font-size: var(--fs-small); color: var(--muted); }
 .hex figcaption { margin-top: 12px; text-align: center; font-size: var(--fs-small); color: var(--muted-dark); }
 @media (max-width: 1023px) {
@@ -312,7 +319,7 @@ section[id] { scroll-margin-top: 96px; }
 .stats { grid-column: 8 / 13; grid-row: 3; align-self: center; display: flex; gap: clamp(32px, 4vw, 88px); margin: 0; }
 .stats div { display: grid; }
 .stats dt { order: 2; font-size: var(--fs-small); color: var(--muted); }
-.stats dd { margin: 0; font-size: calc(clamp(48px, 3vw + 20px, 96px) * var(--a11y-scale)); line-height: 1; font-weight: 800; }
+.stats dd { margin: 0; font-size: calc(clamp(48px, 3vw + 20px, 96px) * var(--a11y-scale)); line-height: 1; font-weight: 500; }
 @media (max-width: 1023px) {
   .about-grid { grid-template-columns: 1fr; }
   .about-img, .about-text, .pull { grid-column: 1; }
@@ -364,7 +371,7 @@ section[id] { scroll-margin-top: 96px; }
 .book-cover { position: relative; display: grid; align-content: space-between; gap: 12px; width: clamp(160px, 14vw, 256px); aspect-ratio: 3 / 4; padding: clamp(16px, 1.4vw, 24px); border-radius: 6px 14px 14px 6px; background: var(--dark); color: #fff;
   box-shadow: var(--shadow-lift), inset -6px 0 0 rgba(255, 255, 255, .08); transform: rotate(3deg); transition: transform .5s var(--e); }
 .bc-line { font-size: calc(11px * var(--a11y-scale)); color: var(--gold); letter-spacing: 0; }
-.bc-title { font-size: calc(clamp(26px, 2vw + 6px, 48px) * var(--a11y-scale)); font-weight: 800; line-height: 1; }
+.bc-title { font-size: calc(clamp(26px, 2vw + 6px, 48px) * var(--a11y-scale)); font-weight: 500; line-height: 1; }
 .bc-sub { font-size: calc(11px * var(--a11y-scale)); line-height: 1.35; color: #BDBDBD; }
 .bc-author { font-size: calc(12px * var(--a11y-scale)); font-weight: 500; }
 @media (hover: hover) and (pointer: fine) { .book:hover .book-cover { transform: rotate(0deg) translateY(-4px); } }
@@ -438,7 +445,9 @@ section[id] { scroll-margin-top: 96px; }
 
 /* ---------- 09 work with me (C16) ---------- */
 .gates { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap-m); margin-bottom: var(--gap-m); }
-.gate { display: grid; gap: 16px; align-content: start; padding: clamp(28px, 3vw, 56px); border-radius: var(--r-card); background: var(--surface-muted); }
+.gate { display: grid; gap: 16px; align-content: start; padding: clamp(28px, 3vw, 56px); border-radius: var(--r-card); background: var(--surface-muted); transition: transform .35s var(--e), box-shadow .35s var(--e); }
+/* MV:lm7, the content family: the card lifts on the diagonal and its shadow deepens */
+@media (hover: hover) and (pointer: fine) { .gate:hover { transform: translate(-6px, -6px); box-shadow: 10px 10px 24px rgba(17, 17, 17, .15); } }
 .gate-who { font-size: var(--fs-small); font-weight: 500; color: var(--muted-strong); }
 .gate h3 { font-size: calc(clamp(24px, 1vw + 14px, 34px) * var(--a11y-scale)); font-weight: 500; }
 .gate p:not(.gate-who) { color: var(--muted-strong); max-width: 48ch; }
@@ -603,9 +612,29 @@ html.a11y-font body, html.a11y-font h1, html.a11y-font h2, html.a11y-font h3, ht
 html.a11y-spacing p, html.a11y-spacing li { line-height: 1.9 !important; word-spacing: .12em; }
 html.a11y-still *, html.a11y-still *::before, html.a11y-still *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 
+/* ---------- the motion layer (24.9.2026, Liav: "very static and boring, almost nothing moves") ----------
+   Every final state is in the markup: without the script, or with reduced motion, everything is simply there. */
+/* the page opening: hidden only while the opening can run (html.open-anim, set in the head); shown anyway after 2.5s */
+.open-anim [data-open], .open-anim .hero-mark { opacity: 0; animation: open-failsafe 0s 2.5s forwards; }
+@keyframes open-failsafe { to { opacity: 1; } }
+.hero h1 > span { display: block; }
+/* MV:g02, ported from export/g02.html: the picture is painted from the bottom up at the pace of the scroll, a soft edge */
+.paint { --reveal: 0%; --feather: 10%;
+  -webkit-mask-image: linear-gradient(to top, #000 0%, #000 var(--reveal), transparent calc(var(--reveal) + var(--feather)), transparent 100%);
+  mask-image: linear-gradient(to top, #000 0%, #000 var(--reveal), transparent calc(var(--reveal) + var(--feather)), transparent 100%);
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; }
+/* MV:b57, the entrance from export/b57.html (the layout stays CSS columns): each frame rises 40px, 70ms after the one before */
+.js .cmosaic .cshot { opacity: 0; translate: 0 40px; transition: opacity .6s var(--e), translate .6s var(--e); transition-delay: var(--d, 0s); }
+.js .cmosaic.ready .cshot { opacity: 1; translate: 0 0; }
+/* MV:lm7, the media family: a video tile presses in */
+.vbtn { transition: transform .3s var(--e); }
+@media (hover: hover) and (pointer: fine) { .vbtn:hover { transform: scale(.97); } }
+
 /* ---------- reduced motion: final states, no pin ---------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: .01ms !important; transition-delay: 0s !important; }
   .js .rv, .js .rv.is-in { opacity: 1; animation: none; }
+  .open-anim [data-open], .open-anim .hero-mark, .js .cmosaic .cshot { opacity: 1; translate: none; animation: none; }
+  .paint { -webkit-mask-image: none; mask-image: none; }
   .pain-scene .w { color: inherit; }
 }

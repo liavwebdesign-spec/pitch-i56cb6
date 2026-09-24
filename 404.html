@@ -7,10 +7,10 @@
 <title>העמוד לא נמצא | פיצ׳</title>
 <meta name="description" content="העמוד לא נמצא.">
 <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="fonts/TalentFS-Black.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/TalentFS-Medium.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/TalentFS-Light.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="site.css?v=e6861825">
-<script>document.documentElement.classList.add("js")</script>
+<link rel="stylesheet" href="site.css?v=75f836c8">
+<script>document.documentElement.classList.add("js");if(!matchMedia("(prefers-reduced-motion: reduce)").matches&&!/[?&]edit=1/.test(location.search))document.documentElement.classList.add("open-anim")</script>
 </head>
 <body data-page="404">
 <a class="skip" href="#main">דילוג לתוכן</a>
@@ -34,8 +34,8 @@
 <!-- ============ 404 (MV:cv6): guess where they meant to go, and let them search ============ -->
 <section class="page-sec nf" data-404 aria-labelledby="nf-h">
   <div class="nf-in">
-    <p class="nf-code"><span>שגיאה 404</span><code dir="ltr" data-shown>/</code></p>
-    <h1 id="nf-h" data-h>הכתובת הזו לא קיימת. בוא נמצא את מה שחיפשת</h1>
+    <p class="nf-code" data-open><span>שגיאה 404</span><code dir="ltr" data-shown>/</code></p>
+    <h1 id="nf-h" data-h data-open>הכתובת הזו לא קיימת. בוא נמצא את מה שחיפשת</h1>
     <a class="nf-guess" data-guess href="index.html" hidden><small>אולי חיפשת</small><b data-gt></b><code dir="ltr" data-gu></code><svg class="i-arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7"/></svg></a>
     <label class="nf-s" for="nf-q"><span>חיפוש בעמודי האתר</span></label>
     <div class="nf-s-in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></svg><input id="nf-q" type="search" placeholder="המבחן, השיטה, הספר..." data-q autocomplete="off" aria-controls="nf-list"></div>
@@ -68,7 +68,8 @@
 <script src="vendor/gsap.min.js" defer></script>
 <script src="vendor/ScrollTrigger.min.js" defer></script>
 <script src="vendor/DrawSVGPlugin.min.js" defer></script>
-<script src="a11y.js?v=e6861825" defer></script>
-<script src="site.js?v=e6861825" defer></script>
+<script src="vendor/SplitText.min.js" defer></script>
+<script src="a11y.js?v=75f836c8" defer></script>
+<script src="site.js?v=75f836c8" defer></script>
 </body>
 </html>

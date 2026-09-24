@@ -7,10 +7,10 @@
 <title>הפוך גוטה | אבינועם גריידי</title>
 <meta name="description" content="הספר של אבינועם גריידי: הסכמה, שאלה, הקשבה.">
 <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="fonts/TalentFS-Black.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/TalentFS-Medium.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/TalentFS-Light.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="site.css?v=e6861825">
-<script>document.documentElement.classList.add("js")</script>
+<link rel="stylesheet" href="site.css?v=75f836c8">
+<script>document.documentElement.classList.add("js");if(!matchMedia("(prefers-reduced-motion: reduce)").matches&&!/[?&]edit=1/.test(location.search))document.documentElement.classList.add("open-anim")</script>
 </head>
 <body data-page="book">
 <a class="skip" href="#main">דילוג לתוכן</a>
@@ -34,17 +34,17 @@
 <!-- ============ THE BOOK (/book, noindex, not in the menu). This round: the cover. The chapters are ported in the next round ============ -->
 <section class="page-sec book-page" aria-labelledby="bk-h">
   <div class="bk-in">
-    <div class="book-cover book-cover-lg" aria-hidden="true">
+    <div class="book-cover book-cover-lg" data-open aria-hidden="true">
       <span class="bc-line">הסכמה • שאלה • הקשבה</span>
       <span class="bc-title">הפוך גוטה</span>
       <span class="bc-sub">שלושה עקרונות פשוטים שיהפכו כל שיחת מכירה לשיחה אמיתית</span>
       <span class="bc-author">אבינועם גריידי</span>
     </div>
     <div class="bk-copy">
-      <h1 id="bk-h">הפוך גוטה</h1>
-      <p class="lead">שלושה עקרונות פשוטים שיהפכו כל שיחת מכירה לשיחה אמיתית.</p>
-      <ul class="chapters" aria-label="פרקי הספר"><li>פתח דבר</li><li>הסיפור שלי</li><li>העיקרון המרכזי</li><li>הסכמה</li><li>שאלה</li><li>הקשבה</li><li>המעגל בפעולה</li><li>טעויות נפוצות</li><li>סיכום</li></ul>
-      <div class="qi-go"><span class="btn btn-primary btn-lg is-soon" aria-disabled="true">הספר עולה לכאן בקרוב</span><a class="btn btn-ghost" href="quiz.html">למבחן הכושר</a></div>
+      <h1 id="bk-h" data-open>הפוך גוטה</h1>
+      <p class="lead" data-open>שלושה עקרונות פשוטים שיהפכו כל שיחת מכירה לשיחה אמיתית.</p>
+      <ul class="chapters" data-open aria-label="פרקי הספר"><li>פתח דבר</li><li>הסיפור שלי</li><li>העיקרון המרכזי</li><li>הסכמה</li><li>שאלה</li><li>הקשבה</li><li>המעגל בפעולה</li><li>טעויות נפוצות</li><li>סיכום</li></ul>
+      <div class="qi-go" data-open><span class="btn btn-primary btn-lg is-soon" aria-disabled="true">הספר עולה לכאן בקרוב</span><a class="btn btn-ghost" href="quiz.html">למבחן הכושר</a></div>
     </div>
   </div>
 </section>
@@ -72,7 +72,8 @@
 <script src="vendor/gsap.min.js" defer></script>
 <script src="vendor/ScrollTrigger.min.js" defer></script>
 <script src="vendor/DrawSVGPlugin.min.js" defer></script>
-<script src="a11y.js?v=e6861825" defer></script>
-<script src="site.js?v=e6861825" defer></script>
+<script src="vendor/SplitText.min.js" defer></script>
+<script src="a11y.js?v=75f836c8" defer></script>
+<script src="site.js?v=75f836c8" defer></script>
 </body>
 </html>

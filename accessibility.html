@@ -7,10 +7,10 @@
 <title>הצהרת נגישות | פיצ׳</title>
 <meta name="description" content="הצהרת הנגישות של אתר פיצ׳.">
 <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="fonts/TalentFS-Black.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/TalentFS-Medium.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/TalentFS-Light.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="site.css?v=e6861825">
-<script>document.documentElement.classList.add("js")</script>
+<link rel="stylesheet" href="site.css?v=75f836c8">
+<script>document.documentElement.classList.add("js");if(!matchMedia("(prefers-reduced-motion: reduce)").matches&&!/[?&]edit=1/.test(location.search))document.documentElement.classList.add("open-anim")</script>
 </head>
 <body data-page="accessibility">
 <a class="skip" href="#main">דילוג לתוכן</a>
@@ -33,8 +33,8 @@
 <main id="main" tabindex="-1">
 <section class="page-sec legal" aria-labelledby="lg-h">
   <div class="legal-in">
-    <h1 id="lg-h">הצהרת נגישות</h1>
-    <p class="legal-note">הנוסח המחייב של ההצהרה מסופק על ידי פיצ׳ ומוטמע כלשונו. עד אז, העמוד מתאר את מה שכבר קיים באתר.</p>
+    <h1 id="lg-h" data-open>הצהרת נגישות</h1>
+    <p class="legal-note" data-open>הנוסח המחייב של ההצהרה מסופק על ידי פיצ׳ ומוטמע כלשונו. עד אז, העמוד מתאר את מה שכבר קיים באתר.</p>
     <h2>מה עשינו</h2>
     <p>האתר נבנה לפי תקן ישראלי 5568, ברמה AA של הנחיות WCAG. יש בו סרגל נגישות בכל עמוד: הגדלת טקסט, ניגודיות גבוהה, גווני אפור, היפוך צבעים, הדגשת קישורים, גופן קריא, ריווח שורות ועצירת אנימציות.</p>
     <h2>ניווט במקלדת</h2>
@@ -67,7 +67,8 @@
 <script src="vendor/gsap.min.js" defer></script>
 <script src="vendor/ScrollTrigger.min.js" defer></script>
 <script src="vendor/DrawSVGPlugin.min.js" defer></script>
-<script src="a11y.js?v=e6861825" defer></script>
-<script src="site.js?v=e6861825" defer></script>
+<script src="vendor/SplitText.min.js" defer></script>
+<script src="a11y.js?v=75f836c8" defer></script>
+<script src="site.js?v=75f836c8" defer></script>
 </body>
 </html>

@@ -7,10 +7,10 @@
 <title>תנאי שימוש | פיצ׳</title>
 <meta name="description" content="תנאי השימוש באתר של פיצ׳.">
 <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="fonts/TalentFS-Black.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/TalentFS-Medium.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/TalentFS-Light.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="site.css?v=e6861825">
-<script>document.documentElement.classList.add("js")</script>
+<link rel="stylesheet" href="site.css?v=75f836c8">
+<script>document.documentElement.classList.add("js");if(!matchMedia("(prefers-reduced-motion: reduce)").matches&&!/[?&]edit=1/.test(location.search))document.documentElement.classList.add("open-anim")</script>
 </head>
 <body data-page="terms">
 <a class="skip" href="#main">דילוג לתוכן</a>
@@ -33,8 +33,8 @@
 <main id="main" tabindex="-1">
 <section class="page-sec legal" aria-labelledby="lg-h">
   <div class="legal-in">
-    <h1 id="lg-h">תנאי שימוש</h1>
-    <p class="legal-note">הנוסח המשפטי המלא מסופק על ידי פיצ׳ ומוטמע כלשונו. עד אז, העמוד מחזיק את המבנה כדי שהקישורים באתר יעבדו.</p>
+    <h1 id="lg-h" data-open>תנאי שימוש</h1>
+    <p class="legal-note" data-open>הנוסח המשפטי המלא מסופק על ידי פיצ׳ ומוטמע כלשונו. עד אז, העמוד מחזיק את המבנה כדי שהקישורים באתר יעבדו.</p>
     <h2>התוכן באתר</h2>
     <p>התוכן, הספר "הפוך גוטה" ומבחן הכושר שייכים לאבינועם גריידי. מותר לשתף קישורים אליהם, לא להעתיק אותם.</p>
     <h2>מבחן הכושר</h2>
@@ -65,7 +65,8 @@
 <script src="vendor/gsap.min.js" defer></script>
 <script src="vendor/ScrollTrigger.min.js" defer></script>
 <script src="vendor/DrawSVGPlugin.min.js" defer></script>
-<script src="a11y.js?v=e6861825" defer></script>
-<script src="site.js?v=e6861825" defer></script>
+<script src="vendor/SplitText.min.js" defer></script>
+<script src="a11y.js?v=75f836c8" defer></script>
+<script src="site.js?v=75f836c8" defer></script>
 </body>
 </html>
