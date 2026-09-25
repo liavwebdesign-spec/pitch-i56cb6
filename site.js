@@ -186,7 +186,7 @@
       var spokes = M.map(function (_, i) { var p = pt(i, R); return mk("line", { x1: C, y1: C, x2: p[0].toFixed(1), y2: p[1].toFixed(1) }, grid); });
       var dotEls = M.map(function () { return mk("circle", { r: 5, cx: C, cy: C }, dots); });
       var vals = M.map(function (m, i) {
-        var p = pt(i, R + 42), up = i === 0 ? -8 : (i === 3 ? 10 : 0), lo = m[1] === 38 ? " is-lo" : "";
+        var p = pt(i, R + (i % 3 ? 36 : 42)), up = i === 0 ? -8 : (i === 3 ? 10 : 0), lo = m[1] === 38 ? " is-lo" : "";
         var v = mk("text", { x: p[0].toFixed(1), y: (p[1] + up - 6).toFixed(1), "text-anchor": "middle", "class": "val" + lo }, labels); v.textContent = String(m[1]);
         var l = mk("text", { x: p[0].toFixed(1), y: (p[1] + up + 16).toFixed(1), "text-anchor": "middle", "class": lo.trim() }, labels); l.textContent = m[0];
         // 3 · the muscle's icon on the reading side of its name (RTL: to the right of the centered name)

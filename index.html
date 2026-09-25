@@ -9,7 +9,7 @@
 <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="fonts/TelAviv-BrutalistBold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/GoogleSans-Hebrew.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="site.css?v=498d2d06">
+<link rel="stylesheet" href="site.css?v=17f10016">
 <script>document.documentElement.classList.add("js");if(!matchMedia("(prefers-reduced-motion: reduce)").matches&&!/[?&]edit=1/.test(location.search))document.documentElement.classList.add("open-anim")</script>
 </head>
 <body data-page="index">
@@ -49,6 +49,7 @@
       <div class="qcard" data-qcard data-open>
         <p class="qcard-top"><span>רגע אחד מתוך המבחן</span><span class="qcard-tag">התנגדויות</span></p>
         <p class="qcard-q">הלקוח אומר לך: <b>"זה יקר לי."</b> מה אתה עונה?</p>
+        <p class="qcard-hint">בחר מה היית עונה:</p>
         <div class="qcard-lines">
           <div class="qcard-ask is-on" role="group" aria-label="שלוש תגובות אפשריות">
             <button type="button" data-a="1">"יקר ביחס למה?"</button>
@@ -137,8 +138,7 @@
 <section class="sec quiz-sec" id="quiz" aria-labelledby="quiz-h">
   <div class="quiz-grid">
     <div class="quiz-copy">
-      <p class="eyebrow rv">חדר הכושר לאנשי מכירות</p>
-      <h2 id="quiz-h">הלקוח הוא המרכז? כולם אומרים את זה. <span class="hd-mark circle"><span>בוא נבדוק</span><svg viewBox="0 0 300 120" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M262,26 C226,6 96,2 46,22 C-4,44 6,92 62,106 C132,122 268,112 288,80 C300,58 286,34 250,22"/></svg></span>.</h2>
+      <h2 id="quiz-h"><span class="ln">הלקוח הוא המרכז?</span> <span class="ln">כולם אומרים את זה.</span> <span class="ln"><span class="hd-mark circle"><span>בוא נבדוק</span><svg viewBox="0 0 300 120" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M262,26 C226,6 96,2 46,22 C-4,44 6,92 62,106 C132,122 268,112 288,80 C300,58 286,34 250,22"/></svg></span>.</span></h2>
       <p class="lead rv">41 רגעים אמיתיים משיחות מכירה, מהפתיחה ועד הסגירה. בכל רגע יש שלוש תגובות, ואתה בוחר את מה שבאמת היית עושה, לא את מה שנשמע נכון. בסוף אתה מקבל מפה של שישה שרירים: איפה אתה חזק, ואיזה שריר כמעט לא אימנת.</p>
       <ol class="stages" aria-label="חמשת שלבי השיחה במבחן">
         <li class="rv"><span>פתיחת שיחה</span></li><li class="rv"><span>בירור צרכים</span></li><li class="rv"><span>הצגת ההצעה</span></li><li class="rv"><span>התנגדויות</span></li><li class="rv"><span>סגירה</span></li>
@@ -244,11 +244,8 @@
       <form class="lead-form" data-form="book" novalidate>
         <div class="sum" data-summary tabindex="-1" role="alert"><div><div class="sum-in"><b data-sum-count></b><ul></ul></div></div></div>
         <div class="f"><label for="b-name">שם</label><div class="f-in"><input id="b-name" name="name" type="text" autocomplete="name" data-v="name" required aria-describedby="b-name-e"><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><div class="f-err" id="b-name-e"><p></p></div></div>
-        <div class="f-row">
-          <div class="f"><label for="b-phone">טלפון</label><div class="f-in"><input id="b-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" data-v="phone" required aria-describedby="b-phone-e"><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><div class="f-err" id="b-phone-e"><p></p></div></div>
-          <div class="f"><label for="b-email">מייל</label><div class="f-in"><input id="b-email" name="email" type="email" inputmode="email" autocomplete="email" dir="ltr" data-v="email" required aria-describedby="b-email-e"><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><div class="f-err" id="b-email-e"><p></p></div>
+        <div class="f"><label for="b-email">מייל</label><div class="f-in"><input id="b-email" name="email" type="email" inputmode="email" autocomplete="email" dir="ltr" data-v="email" required aria-describedby="b-email-e"><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><div class="f-err" id="b-email-e"><p></p></div>
             <div class="f-sug" data-suggest><div><button type="button">התכוונת ל-<b data-fixed></b>?</button></div></div></div>
-        </div>
         <label class="consent"><input type="checkbox" name="consent" data-v="consent"><span>אני מאשר לקבל מאבינועם עדכונים על חדר הכושר ותכנים על מכירות. אפשר להסיר בכל רגע. <a href="privacy.html">מדיניות פרטיות</a></span></label>
         <div class="consent-err f-err"><p></p></div>
         <button class="btn btn-primary btn-lg btn-block send" type="submit"><span class="spin" aria-hidden="true"></span><span data-lab>לקבל את הספר ולהיכנס לרשימה</span></button>
@@ -367,7 +364,7 @@
 <script src="vendor/ScrollTrigger.min.js" defer></script>
 <script src="vendor/DrawSVGPlugin.min.js" defer></script>
 <script src="vendor/SplitText.min.js" defer></script>
-<script src="a11y.js?v=498d2d06" defer></script>
-<script src="site.js?v=498d2d06" defer></script>
+<script src="a11y.js?v=17f10016" defer></script>
+<script src="site.js?v=17f10016" defer></script>
 </body>
 </html>

@@ -186,6 +186,8 @@ section[id] { scroll-margin-top: 96px; }
 .qcard-tag { padding: 4px 12px; border-radius: var(--r-control); background: var(--tint-12); color: var(--gold-text); font-weight: 500; }
 .qcard-q { font-size: var(--fs-h3); line-height: 1.3; text-wrap: balance; }
 .qcard-q b { font-weight: 500; }
+/* says the three lines are buttons (Avinoam, 25.9.2026) */
+.qcard-hint { margin-top: -4px; font-size: var(--fs-small); font-weight: 500; color: var(--muted-strong); }
 .qcard-lines { display: grid; }
 .qcard-ask, .qcard-res { grid-area: 1 / 1; display: grid; gap: 8px; align-content: start; transition: opacity .28s var(--e), transform .28s var(--e), visibility 0s linear .28s; }
 .qcard-ask:not(.is-on), .qcard-res:not(.is-on) { opacity: 0; transform: translateY(8px); visibility: hidden; }
@@ -209,7 +211,8 @@ section[id] { scroll-margin-top: 96px; }
 }
 @media (max-width: 1023px) and (min-width: 768px) { .hero { height: auto; } }
 @media (max-width: 767px) {
-  .hero { padding-block: 88px 16px; /* qa-allow: sec, clears the floating header */ }
+  /* the hero starts under the header instead of centring in a full screen: no white gap above the h1 (Avinoam, 25.9.2026) */
+  .hero { height: auto; min-height: 0; align-content: start; padding-block: 96px 32px; /* qa-allow: sec, clears the floating header */ }
   .hero-copy { gap: 12px; }
   .hero h1 { font-size: calc(clamp(24px, 6.9vw, 36px) * var(--a11y-scale)); } /* Brutalist Bold runs wide: one line per sentence at 360 */
   .hero .lead .more, .hero-sub, .hero-team, .hero .eyebrow { display: none; }
@@ -222,12 +225,12 @@ section[id] { scroll-margin-top: 96px; }
 
 /* ---------- 02 pain (C14) + MV:g48 ---------- */
 .pain { background: var(--surface-muted); padding-block: var(--sec-loose); }
-.pain-in { max-width: var(--head-w); margin-inline: auto; display: grid; gap: clamp(20px, 2.4vw, 40px); text-align: center; justify-items: center; }
+.pain-in { max-width: var(--head-w); margin-inline: auto; display: grid; gap: clamp(20px, 2.4vw, 40px); justify-items: start; } /* right-aligned like the rest of the page (Avinoam, 25.9.2026; was centred C14) */
 .pain h2 { max-width: 20ch; }
-.pain-scene { max-width: 34ch; margin-inline: auto; font-size: calc(clamp(22px, 1.6vw + 8px, 40px) * var(--a11y-scale)); line-height: 1.4; font-weight: 500; }
+.pain-scene { max-width: 34ch; font-size: calc(clamp(22px, 1.6vw + 8px, 40px) * var(--a11y-scale)); line-height: 1.4; font-weight: 500; }
 /* the words start grey and fill to ink; the grey passes AA on the grey surface too (the skin's muted gave 4.39) */
 .pain-scene .w { color: #6A6A6A; display: inline; }
-.pain-body { max-width: var(--measure); margin-inline: auto; color: var(--muted-strong); }
+.pain-body { max-width: var(--measure); color: var(--muted-strong); }
 .statement { font-size: var(--fs-stmt); line-height: 1.05; font-weight: 500; margin-top: clamp(8px, 1vw, 24px); }
 
 /* ---------- 03 the method (C11 sticky) + MV:g22 ---------- */
@@ -306,7 +309,9 @@ section[id] { scroll-margin-top: 96px; }
 .quiz-sec .micro { color: var(--muted-dark); }
 .quiz-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(40px, 6vw, 112px); align-items: center; }
 .quiz-copy { display: grid; gap: clamp(16px, 2vw, 28px); justify-items: start; }
-.quiz-copy h2 { max-width: 16ch; }
+.quiz-copy h2 { max-width: none; }
+.quiz-copy h2 .ln { display: block; }
+.quiz-copy h2 .ln:last-child { margin-top: .24em; } /* the circle gets air from the line above (Avinoam, 25.9.2026) */
 .stages { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .stages li { display: inline-flex; align-items: center; gap: 8px; }
 .stages span { display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: var(--r-control); background: var(--dark-2); font-size: var(--fs-small); color: #DCDCDC; }
@@ -322,6 +327,8 @@ section[id] { scroll-margin-top: 96px; }
 .hex-labels text { font-family: var(--f); fill: #CCCCCC; font-size: 15px; font-weight: 500; }
 .hex-labels text.val { fill: var(--on-dark); font-family: var(--f-display); font-size: 22px; font-weight: 700; }
 .hex-labels text.is-lo { fill: #9A9A9A; }
+/* phone: the map shrinks to ~300px, so its names are set larger in SVG units (15 read at 9-11px). Measured inside the screen at 320 (Avinoam, 25.9.2026) */
+@media (max-width: 767px) { .hex-labels text { font-size: 18px; } .hex-labels text.val { font-size: 24px; } }
 .chip { position: absolute; z-index: 1; display: inline-flex; align-items: baseline; gap: 6px; padding: 10px 16px; border-radius: var(--r-control); background: var(--surface); color: var(--ink); font-size: var(--fs-small); box-shadow: 0 16px 40px rgba(0, 0, 0, .35); white-space: nowrap; }
 .chip b { font-weight: 500; }
 /* 3 · the six muscles, drawn for this site in one line (not a library set): 1.8 stroke, round ends */
@@ -420,8 +427,9 @@ section[id] { scroll-margin-top: 96px; }
 .chapters { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .chapters li { padding: 6px 12px; border-radius: var(--r-control); background: var(--surface); font-size: var(--fs-small); }
 /* the book, drawn after his own cover: black, the three words, the title */
-.book-cover { position: relative; display: grid; align-content: space-between; gap: 12px; width: clamp(160px, 14vw, 256px); aspect-ratio: 3 / 4; padding: clamp(16px, 1.4vw, 24px); border-radius: 6px 14px 14px 6px; background: var(--dark); color: #fff;
-  box-shadow: var(--shadow-lift), inset -6px 0 0 rgba(255, 255, 255, .08); transform: rotate(3deg); transition: transform .5s var(--e); }
+.book-cover { position: relative; display: grid; align-content: space-between; gap: 12px; width: clamp(160px, 14vw, 256px); aspect-ratio: 3 / 4; padding: clamp(16px, 1.4vw, 24px); border-radius: 14px 4px 4px 14px; background: var(--dark); color: #fff;
+  /* a Hebrew book: the spine is on the right (Avinoam, 24.9.2026) */
+  box-shadow: var(--shadow-lift), inset -8px 0 0 rgba(255, 255, 255, .12), inset -10px 0 0 rgba(0, 0, 0, .35); transform: rotate(3deg); transition: transform .5s var(--e); }
 .bc-line { font-size: calc(11px * var(--a11y-scale)); color: var(--gold); letter-spacing: 0; }
 .bc-title { font-size: calc(clamp(26px, 2vw + 6px, 48px) * var(--a11y-scale)); font-weight: 500; line-height: 1; }
 .bc-sub { font-size: calc(11px * var(--a11y-scale)); line-height: 1.35; color: #C4C4C4; }
@@ -579,7 +587,18 @@ html.bar-on .fabs { transform: translateY(-80px); }
 /* a light ring: the dark disc disappears over the dark sections without it */
 .fab-a11y { background: var(--ink); box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .8), 0 10px 28px rgba(28, 26, 23, .26); }
 .fab:active { transform: scale(.94); }
-@media (max-width: 767px) { .fabs { bottom: 12px; inset-inline-end: 12px; } .fab { width: 48px; height: 48px; } }
+/* phone: the a11y button sits in the slot the bar keeps for it (padding-inline-end 72px), never above it over the text (Avinoam, 25.9.2026) */
+/* phone: the a11y button never sits on running text. With the bar on, it docks in the slot the bar keeps for it
+   (padding-inline-end 72px); with the bar off (hero, forms, the quiz call, footer) it is a tab inside the 24px gutter,
+   24 x 48, still above the WCAG 2.5.8 minimum (Avinoam, 25.9.2026) */
+@media (max-width: 767px) {
+  .fabs { bottom: 16px; inset-inline-end: 0; transition: none; }
+  .fab-a11y { width: 24px; height: 48px; border-radius: 0 12px 12px 0; box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .8), 0 6px 18px rgba(28, 26, 23, .24); }
+  .fab-a11y svg { width: 16px; height: 16px; }
+  html.bar-on .fabs { transform: none; bottom: 12px; inset-inline-end: 12px; }
+  html.bar-on .fab-a11y { width: 48px; height: 48px; border-radius: 50%; box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .8), 0 10px 28px rgba(28, 26, 23, .26); }
+  html.bar-on .fab-a11y svg { width: 24px; height: 24px; }
+}
 
 /* ---------- mobile action bar (MV:cv1) ---------- */
 .mbar { position: fixed; inset-inline: 0; bottom: 0; z-index: 65; display: flex; align-items: center; gap: 8px; padding: 10px 12px max(10px, env(safe-area-inset-bottom)); padding-inline-end: 72px;
