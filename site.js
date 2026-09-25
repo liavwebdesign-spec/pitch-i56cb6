@@ -295,7 +295,8 @@
   /* ---------- the two gates choose the interest in the form below, and bring the visitor to it ---------- */
   $$("[data-pick]").forEach(function (b) {
     b.addEventListener("click", function () {
-      var r = $('.lead-form[data-form="talk"] input[name="kind"][value="' + b.getAttribute("data-pick") + '"]'); if (!r) return;
+      // the choice is made in the form of the same zone (the managers zone has its own form, 25.9.2026)
+      var zone = b.closest("section"), r = zone && zone.querySelector('.lead-form input[name="kind"][value="' + b.getAttribute("data-pick") + '"]'); if (!r) return;
       r.checked = true; r.dispatchEvent(new Event("change", { bubbles: true }));
       var card = r.closest(".form-card"); card.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
       setTimeout(function () { var n = $('input[name="name"]', card); if (n) n.focus({ preventScroll: true }); }, reduced ? 0 : 600);
@@ -340,7 +341,8 @@
       return fmt(d) ? "" : "המספר לא נראה כמו טלפון ישראלי"; },
     email: function (v, el) { v = v.trim(); if (!v) return el.hasAttribute("data-optional") ? "" : "חסרה כתובת מייל, לשם נשלח הספר"; if (v.indexOf("@") < 0) return "בכתובת חסר @"; if (!/^[^@ ]+@[^@ ]+[.][^@ ]{2,}$/.test(v)) return "הכתובת לא שלמה, למשל name@gmail.com"; return ""; },
     consent: function (v, el) { return el.checked ? "" : (el.closest('[data-form="book"]') ? "צריך לסמן כדי שאוכל לשלוח לך את הספר" : "צריך לאשר כדי שאוכל לחזור אליך"); },
-    kind: function (v, el) { return $("input:checked", el) ? "" : "מה הכי קרוב למה שאתה מחפש?"; }
+    kind: function (v, el) { return $("input:checked", el) ? "" : "מה הכי קרוב למה שאתה מחפש?"; },
+    size: function (v, el) { return $("input:checked", el) ? "" : "כמה אנשים מוכרים אצלך?"; }
   };
   var ENDPOINT = ""; // the sketch has no server yet: the flow is real, the request is not (stage 4 wires the database)
 
@@ -354,13 +356,13 @@
     var st0 = 0; form.addEventListener("input", function () { clearTimeout(st0); st0 = setTimeout(function () { var o = {}; fields.forEach(function (f) { o[f.name] = f.value; }); try { localStorage.setItem(KEY, JSON.stringify(o)); } catch (e) {} }, 300); });
 
     var valOf = function (inp) { return inp.value || ""; };
-    var errOf = function (inp) { var k = inp.getAttribute("data-v"); if (k === "consent") return $(".consent-err", form); if (k === "kind") return $(".kind-err", form); return inp.closest(".f"); };
+    var errOf = function (inp) { var k = inp.getAttribute("data-v"); if (k === "consent") return $(".consent-err", form); if (k === "kind" || k === "size") return $("." + k + "-err", form); return inp.closest(".f"); };
     var check = function (inp, show) {
       var k = inp.getAttribute("data-v"), m = RULES[k](valOf(inp), inp), wrapEl = errOf(inp);
       if (show || touched[k]) {
-        if (k === "consent" || k === "kind") { wrapEl.classList.toggle("is-on", !!m); $("p", wrapEl).textContent = m; }
+        if (k === "consent" || k === "kind" || k === "size") { wrapEl.classList.toggle("is-on", !!m); $("p", wrapEl).textContent = m; }
         else { wrapEl.classList.toggle("is-bad", !!m); wrapEl.classList.toggle("is-ok", !m && valOf(inp).trim() !== ""); if (m) $(".f-err p", wrapEl).textContent = m; }
-        if (k !== "kind") inp.setAttribute("aria-invalid", m ? "true" : "false");
+        if (k !== "kind" && k !== "size") inp.setAttribute("aria-invalid", m ? "true" : "false");
       }
       return m;
     };
@@ -374,7 +376,7 @@
     if (sug) $("button", sug).addEventListener("click", function () { var inp = $("[data-v=email]", form); inp.value = sug.fixed; sug.classList.remove("is-open"); check(inp, true); inp.focus(); });
     inputs.forEach(function (inp) {
       var k = inp.getAttribute("data-v");
-      if (k === "consent" || k === "kind") { inp.addEventListener("change", function () { touched[k] = true; check(inp, true); summary(false); }); return; }
+      if (k === "consent" || k === "kind" || k === "size") { inp.addEventListener("change", function () { touched[k] = true; check(inp, true); summary(false); }); return; }
       inp.addEventListener("blur", function () {
         if (inp.value.trim() === "" && !touched[k]) return;
         if (k === "phone") { var f = fmt(norm(inp.value)); if (f) inp.value = f; }
@@ -383,12 +385,12 @@
       // after the first mistake it re-checks while typing: the error leaves the moment it is fixed, never arrives mid-word
       inp.addEventListener("input", function () { if (touched[k]) check(inp, true); if (k === "email" && sug) sug.classList.remove("is-open"); });
     });
-    var nameOf = function (inp) { var k = inp.getAttribute("data-v"); if (k === "consent") return "האישור"; if (k === "kind") return "מה מעניין אותך"; return inp.closest(".f").querySelector("label").textContent.replace(/[(].*[)]/, "").trim(); };
+    var nameOf = function (inp) { var k = inp.getAttribute("data-v"); if (k === "consent") return "האישור"; if (k === "kind") return "מה מעניין אותך"; if (k === "size") return "גודל הצוות"; return inp.closest(".f").querySelector("label").textContent.replace(/[(].*[)]/, "").trim(); };
     var summary = function (focus) {
       if (!sum.classList.contains("is-open") && !focus) return 0;
       var bad = inputs.filter(function (inp) { return RULES[inp.getAttribute("data-v")](valOf(inp), inp); }), ul = $("ul", sum); ul.textContent = "";
       bad.forEach(function (inp) {
-        var li = document.createElement("li"), a = document.createElement("a"), target = inp.getAttribute("data-v") === "kind" ? $("input", inp) : inp;
+        var li = document.createElement("li"), a = document.createElement("a"), target = /^(kind|size)$/.test(inp.getAttribute("data-v")) ? $("input", inp) : inp;
         a.href = "#" + (target.id || ""); a.textContent = nameOf(inp) + ": " + RULES[inp.getAttribute("data-v")](valOf(inp), inp);
         a.addEventListener("click", function (ev) { ev.preventDefault(); target.focus(); }); li.appendChild(a); ul.appendChild(li);
       });
@@ -404,7 +406,7 @@
     var setLab = function (t) { lab.classList.remove("in"); void lab.offsetWidth; lab.textContent = t; lab.classList.add("in"); };
     var msg = $("[data-msg]", panel), sub = $("[data-sub]", panel), ring = $(".ring-cd", panel);
     var show = function (kind, m, s) { panel.setAttribute("data-kind", kind); msg.textContent = m; sub.textContent = s || ""; panel.classList.add("is-open"); };
-    var data = function () { var o = { form: which }; fields.forEach(function (f) { o[f.name] = f.value.trim(); }); var k = $('input[name="kind"]:checked', form); if (k) o.kind = k.value; try { o.heroAnswer = sessionStorage.getItem("pitch-hero-answer") || ""; } catch (e) {} return o; };
+    var data = function () { var o = { form: which }; fields.forEach(function (f) { o[f.name] = f.value.trim(); }); var k = $('input[name="kind"]:checked', form); if (k) o.kind = k.value; var z = $('input[name="size"]:checked', form); if (z) o.size = z.value; try { o.heroAnswer = sessionStorage.getItem("pitch-hero-answer") || ""; } catch (e) {} return o; };
     var send = function (o) {
       if (!ENDPOINT) return new Promise(function (res) { setTimeout(res, 800); });
       return fetch(ENDPOINT, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(o) }).then(function (r) { if (!r.ok) throw new Error(r.status); });
@@ -442,7 +444,7 @@
   /* ---------- thank-you page (MV:cv3): the form it came from, the name, the time, one conversion per session ---------- */
   var ty = $("[data-thanks]");
   if (ty) {
-    var q = new URLSearchParams(location.search), nm = "", fm = q.get("form") === "talk" ? "talk" : "book";
+    var q = new URLSearchParams(location.search), nm = "", fm = /^(talk|team)$/.test(q.get("form") || "") ? "talk" : "book"; // the managers form (team) says the same as the coaching one
     ty.setAttribute("data-form", fm);
     try { nm = q.get("name") || sessionStorage.getItem("lead-name") || ""; } catch (e) {}
     nm = nm.trim().split(" ")[0];
@@ -468,11 +470,12 @@
       { t: "הספר הפוך גוטה", u: "index.html#gym", k: "book ספר הפוך גוטה מתנה" },
       { t: "רשימת ההמתנה לחדר הכושר", u: "index.html#gym", k: "gym חדר כושר רשימה המתנה" },
       { t: "מי אני", u: "index.html#about", k: "about אודות אבינועם" },
-      { t: "לעבוד איתי: אימון והדרכה", u: "index.html#work", k: "work coaching אימון הדרכה צוות" },
+      { t: "אימון אישי בזום", u: "index.html#coaching", k: "work coaching אימון אישי זום" },
+      { t: "לבעלי עסקים: סדנה ומערך הדרכה", u: "index.html#managers", k: "managers business team workshop עסק מנהל סוכנות סדנה הדרכה צוות" },
       { t: "הצהרת נגישות", u: "accessibility.html", k: "accessibility נגישות" },
       { t: "מדיניות פרטיות", u: "privacy.html", k: "privacy פרטיות" },
       { t: "תנאי שימוש", u: "terms.html", k: "terms תנאים" }];
-    var SLUG = { "method": "index.html#method", "about": "index.html#about", "quiz": "quiz.html", "test": "quiz.html", "book": "index.html#gym", "gym": "index.html#gym", "work": "index.html#work", "coaching": "index.html#work", "privacy": "privacy.html", "terms": "terms.html", "accessibility": "accessibility.html" };
+    var SLUG = { "method": "index.html#method", "about": "index.html#about", "quiz": "quiz.html", "test": "quiz.html", "book": "index.html#gym", "gym": "index.html#gym", "work": "index.html#coaching", "coaching": "index.html#coaching", "managers": "index.html#managers", "business": "index.html#managers", "team": "index.html#managers", "privacy": "privacy.html", "terms": "terms.html", "accessibility": "accessibility.html" };
     var path = decodeURIComponent(location.pathname).split("/").filter(Boolean).pop() || "";
     path = path.replace(/[.]html$/, "").toLowerCase();
     $("[data-shown]", nf).textContent = "/" + path;
