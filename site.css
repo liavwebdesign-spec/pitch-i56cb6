@@ -208,8 +208,8 @@ section[id] { scroll-margin-top: 96px; }
 }
 @media (max-width: 1023px) and (min-width: 768px) { .hero { height: auto; } }
 @media (max-width: 767px) {
-  /* the hero starts under the header instead of centring in a full screen: no white gap above the h1 (Avinoam, 25.9.2026) */
-  .hero { height: auto; min-height: 0; align-content: start; padding-block: 96px 32px; /* qa-allow: sec, clears the floating header */ }
+  /* the first screen: the content sits in the middle of the space between the header and the bottom of the screen (Liav, 27.9.2026). Enforced by project-check hero-vcenter */
+  .hero { height: auto; min-height: 100svh; align-content: center; padding-block: 88px 16px; /* qa-allow: sec, clears the floating header */ }
   .hero-copy { gap: 12px; }
   .hero h1 { font-size: calc(clamp(24px, 6.9vw, 36px) * var(--a11y-scale)); } /* Brutalist Bold runs wide: one line per sentence at 360 */
   .hero .lead .more, .hero-sub, .hero .eyebrow { display: none; } /* the business owner's link stays: the split starts on the first screen (25.9.2026) */
