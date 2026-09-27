@@ -803,7 +803,7 @@ html.a11y-still *, html.a11y-still *::before, html.a11y-still *::after { animati
 .hd-mark > span { position: relative; z-index: 1; }
 .hd-mark svg { position: absolute; z-index: 0; inset-inline: -5%; bottom: .1em; width: 110%; height: .5em; overflow: visible; pointer-events: none; }
 .hd-mark path { fill: none; stroke: var(--gold); stroke-width: .44em; stroke-linecap: round; vector-effect: non-scaling-stroke; }
-.hd-mark.circle svg { z-index: 0; inset: -.42em -.5em auto auto; width: calc(100% + 1em); height: calc(100% + .86em); }
+.hd-mark.circle svg { z-index: 0; inset: -.42em -.5em auto auto; width: calc(100% + 1em); max-width: none; height: calc(100% + .86em); } /* max-width: none: the reset caps svg at 100%, which pulled the ring to the start side over the last letter (27.9.2026) */
 .hd-mark.circle path { stroke: var(--ink); stroke-width: 5px; }
 .quiz-sec .hd-mark.circle path { stroke: var(--gold); }
 .close .hd-mark path { stroke: var(--ink); }
