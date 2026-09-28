@@ -276,13 +276,17 @@
     }, 0.8);
   });
 
-  /* ---------- videos: the TikTok player loads only on a click (no request to TikTok before it) ---------- */
+  /* ---------- videos: Avinoam's own files, hosted with the site (28.9.2026, instead of the TikTok embed).
+     Nothing loads before a click; the click swaps the poster for a native player that starts with sound, and
+     starting one video pauses any other ---------- */
   $$(".vbtn").forEach(function (b) {
     b.addEventListener("click", function () {
-      var id = b.getAttribute("data-tt"), f = document.createElement("div"), fr = document.createElement("iframe");
-      f.className = "vframe"; fr.src = "https://www.tiktok.com/embed/v2/" + id + "?lang=he-IL"; fr.title = b.getAttribute("aria-label").replace("לנגן את הסרטון: ", "סרטון: ");
-      fr.setAttribute("allow", "encrypted-media; fullscreen; picture-in-picture"); fr.setAttribute("allowfullscreen", "");
-      f.appendChild(fr); b.replaceWith(f); fr.focus();
+      var v = document.createElement("video"), img = $("img", b);
+      v.className = "vframe"; v.src = b.getAttribute("data-video"); v.poster = img ? img.getAttribute("src") : "";
+      v.controls = true; v.playsInline = true; v.preload = "auto";
+      v.setAttribute("aria-label", b.getAttribute("aria-label").replace("לנגן את הסרטון: ", "סרטון: "));
+      v.addEventListener("play", function () { $$("video.vframe").forEach(function (o) { if (o !== v) o.pause(); }); });
+      b.replaceWith(v); v.focus(); var pr = v.play(); if (pr && pr.catch) pr.catch(function () {});
     });
   });
 

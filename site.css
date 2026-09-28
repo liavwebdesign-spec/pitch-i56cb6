@@ -383,12 +383,12 @@ section[id] { scroll-margin-top: 96px; }
 .videos .vgrid { justify-content: center; }
 .videos .sec-cta { justify-content: center; }
 .videos .vtile p { text-align: center; }
-.vgrid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, clamp(240px, 22vw, 400px))); gap: var(--gap-m); align-items: start; }
+.vgrid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, clamp(200px, 18vw, 340px))); gap: var(--gap-m); align-items: start; }
 /* the middle video steps down: the row breaks the grid a little, like the rest of the page */
-.vtile:nth-child(2) { margin-top: clamp(32px, 4vw, 88px); }
+.vtile:nth-child(even) { margin-top: clamp(32px, 4vw, 88px); }
 .vtile { display: grid; gap: 12px; }
 .vtile p { font-weight: 500; }
-.vbtn, .vframe { position: relative; display: block; width: 100%; aspect-ratio: 9 / 16; border: 0; padding: 0; border-radius: var(--r-card); overflow: hidden; background: var(--dark); cursor: pointer; }
+.vbtn, .vframe { position: relative; object-fit: cover; display: block; width: 100%; aspect-ratio: 9 / 16; border: 0; padding: 0; border-radius: var(--r-card); overflow: hidden; background: var(--dark); cursor: pointer; }
 .vbtn img { width: 100%; height: 100%; object-fit: cover; filter: var(--photo); transition: filter .5s var(--e), transform .6s var(--e); }
 .vplay { position: absolute; inset: 0; margin: auto; width: 72px; height: 72px; border-radius: 50%; background: var(--gold); box-shadow: 0 12px 32px rgba(0, 0, 0, .35); transition: transform .2s var(--e); }
 .vplay::after { content: ""; position: absolute; top: 50%; inset-inline-start: 50%; width: 0; height: 0; margin-top: -12px; margin-inline-start: -6px; border-block: 12px solid transparent; border-inline-end: 18px solid var(--ink); }
@@ -398,8 +398,9 @@ section[id] { scroll-margin-top: 96px; }
 @media (max-width: 767px) {
   .vgrid { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); scrollbar-width: none; }
   .vgrid::-webkit-scrollbar { display: none; }
-  .vtile { flex: 0 0 72%; scroll-snap-align: center; }
-  .vtile:nth-child(2) { margin-top: 0; }
+  .videos .vgrid { justify-content: flex-start; scroll-padding-inline: var(--gutter); } /* centred, a scrolling row overflows on both sides and its first video sits past the screen edge, out of reach */
+  .vtile { flex: 0 0 72%; scroll-snap-align: start; } /* start: the first video opens the row, not the second one centred */
+  .vtile:nth-child(even) { margin-top: 0; }
 }
 
 /* ---------- 07 comments (C13): frames that hold the layout until the screenshots arrive ---------- */
