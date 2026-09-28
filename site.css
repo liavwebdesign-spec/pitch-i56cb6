@@ -852,3 +852,9 @@ html.a11y-still *, html.a11y-still *::before, html.a11y-still *::after { animati
 .perks li { display: flex; align-items: center; gap: 14px; font-size: var(--fs-body); color: var(--ink); }
 .perk-ic { display: grid; place-items: center; width: 44px; height: 44px; flex: none; border-radius: 12px; background: var(--gold); color: var(--ink); }
 .perk-ic .ic { width: 22px; height: 22px; }
+
+/* the reel's pause control: a looping video that moves for more than 5 seconds needs one (WCAG 2.2.2) */
+.phone-toggle { position: absolute; z-index: 2; bottom: 14px; left: 14px; /* qa-allow: physical, a fixed corner of the phone screen */ width: 44px; height: 44px; border: 0; border-radius: 50%; background: rgba(28, 26, 23, .72); color: #fff; cursor: pointer; display: grid; place-items: center; }
+.phone-toggle span { width: 12px; height: 14px; border-inline: 4px solid currentColor; }
+.phone-toggle[aria-pressed="true"] span { width: 0; height: 0; border: 0; border-block: 8px solid transparent; border-left: 13px solid currentColor; /* qa-allow: physical, a play triangle points right in any language */ translate: 2px 0; }
+.phone-toggle:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }

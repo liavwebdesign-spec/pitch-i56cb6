@@ -9,7 +9,7 @@
 <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="fonts/TelAviv-BrutalistBold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/GoogleSans-Hebrew.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="site.css?v=8a9b856f">
+<link rel="stylesheet" href="site.css?v=81d8b505">
 <script>document.documentElement.classList.add("js");if(!matchMedia("(prefers-reduced-motion: reduce)").matches&&!/[?&]edit=1/.test(location.search))document.documentElement.classList.add("open-anim")</script>
 </head>
 <body data-page="index">
@@ -82,11 +82,12 @@
 <!-- ============ 02b FROM THE FIELD: a loop from his own videos, muted. A placeholder until the source files arrive ============ -->
 <section class="reel" aria-label="אבינועם מהשטח">
   <div class="reel-in">
-    <div class="phone rv" aria-hidden="true">
-      <span class="phone-btn phone-btn-a"></span><span class="phone-btn phone-btn-b"></span><span class="phone-btn phone-btn-c"></span>
+    <div class="phone rv">
+      <span class="phone-btn phone-btn-a" aria-hidden="true"></span><span class="phone-btn phone-btn-b" aria-hidden="true"></span><span class="phone-btn phone-btn-c" aria-hidden="true"></span>
       <div class="phone-screen">
         <span class="phone-island"></span>
-        <video class="phone-video" src="video/v3.mp4" poster="images/v3-poster.webp" muted loop playsinline preload="none" data-reel></video>
+        <video class="phone-video" src="video/v3.mp4" poster="images/v3-poster.webp" muted loop playsinline preload="none" aria-hidden="true" data-reel></video>
+        <button class="phone-toggle" type="button" data-video-toggle aria-label="השהיית הווידאו" aria-pressed="false"><span aria-hidden="true"></span></button>
       </div>
     </div>
     <div class="reel-copy">
@@ -392,7 +393,7 @@
 <script src="vendor/ScrollTrigger.min.js" defer></script>
 <script src="vendor/DrawSVGPlugin.min.js" defer></script>
 <script src="vendor/SplitText.min.js" defer></script>
-<script src="a11y.js?v=8a9b856f" defer></script>
-<script src="site.js?v=8a9b856f" defer></script>
+<script src="a11y.js?v=81d8b505" defer></script>
+<script src="site.js?v=81d8b505" defer></script>
 </body>
 </html>

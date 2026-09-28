@@ -292,8 +292,14 @@
 
   /* ---------- the phone reel: plays silent only while on screen, never under reduced motion ---------- */
   var rv = $("[data-reel]");
-  if (rv && !reduced && "IntersectionObserver" in window) {
-    new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { rv.preload = "auto"; var p = rv.play(); if (p && p.catch) p.catch(function () {}); } else rv.pause(); }); }, { threshold: 0.35 }).observe(rv);
+  var rvHeld = reduced, rvBtn = $("[data-video-toggle]");
+  if (rvBtn && rv) {
+    var rvSync = function () { rvBtn.setAttribute("aria-pressed", String(rvHeld)); rvBtn.setAttribute("aria-label", rvHeld ? "הפעלת הווידאו" : "השהיית הווידאו"); };
+    rvSync();
+    rvBtn.addEventListener("click", function () { rvHeld = !rvHeld; rvSync(); if (rvHeld) rv.pause(); else { rv.preload = "auto"; var p = rv.play(); if (p && p.catch) p.catch(function () {}); } });
+  }
+  if (rv && "IntersectionObserver" in window) {
+    new IntersectionObserver(function (es) { es.forEach(function (e) { if (rvHeld) return; if (e.isIntersecting) { rv.preload = "auto"; var p = rv.play(); if (p && p.catch) p.catch(function () {}); } else rv.pause(); }); }, { threshold: 0.35 }).observe(rv);
   }
 
   /* ---------- questions: one open at a time is not forced; each opens and closes on its own ---------- */
