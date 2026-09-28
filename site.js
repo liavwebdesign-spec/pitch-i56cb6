@@ -290,6 +290,12 @@
     });
   });
 
+  /* ---------- the phone reel: plays silent only while on screen, never under reduced motion ---------- */
+  var rv = $("[data-reel]");
+  if (rv && !reduced && "IntersectionObserver" in window) {
+    new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { rv.preload = "auto"; var p = rv.play(); if (p && p.catch) p.catch(function () {}); } else rv.pause(); }); }, { threshold: 0.35 }).observe(rv);
+  }
+
   /* ---------- questions: one open at a time is not forced; each opens and closes on its own ---------- */
   $$(".acc-i").forEach(function (it) {
     var b = $("button", it), pn = $(".acc-p", it); pn.classList.toggle("open", b.getAttribute("aria-expanded") === "true");
