@@ -833,3 +833,15 @@ html.a11y-still *, html.a11y-still *::before, html.a11y-still *::after { animati
   .paint { -webkit-mask-image: none; mask-image: none; }
   .pain-scene .w { color: inherit; }
 }
+
+/* ---------- icons (Magnific, one outline line, 28.9.2026): they carry a word, never decorate. Ink or light by currentColor ---------- */
+.ic { display: block; width: 1em; height: 1em; flex: none; fill: currentColor; }
+.stages span { gap: 8px; }
+.stages .ic { width: 18px; height: 18px; opacity: .85; }
+.mgr-b h3 { display: flex; align-items: center; gap: 14px; }
+.mgr-ic { display: grid; place-items: center; width: 44px; height: 44px; flex: none; border-radius: 12px; background: rgba(244, 213, 78, .14); color: var(--gold); }
+.mgr-ic .ic { width: 24px; height: 24px; }
+.perks { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; max-width: var(--measure); }
+.perks li { display: flex; align-items: center; gap: 14px; font-size: var(--fs-body); color: var(--ink); }
+.perk-ic { display: grid; place-items: center; width: 44px; height: 44px; flex: none; border-radius: 12px; background: var(--gold); color: var(--ink); }
+.perk-ic .ic { width: 22px; height: 22px; }
