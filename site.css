@@ -342,7 +342,7 @@ section[id] { scroll-margin-top: 96px; }
 .chip-score .sc { unicode-bidi: isolate; }
 .chip-score b { font-weight: 500; }
 .chip-score small { font-size: var(--fs-small); color: var(--muted); }
-.hex figcaption { margin-top: 12px; text-align: center; font-size: var(--fs-small); color: var(--muted-dark); }
+.hex figcaption { margin-top: 12px; text-align: end; font-size: var(--fs-small); color: var(--muted-dark); } /* the end side: the goal chip owns the start corner below the chart, and the longer caption ran under it at 1024 (5.10.2026) */
 @media (max-width: 1023px) {
   .quiz-grid { grid-template-columns: 1fr; }
   .hex { width: min(100%, 520px); }

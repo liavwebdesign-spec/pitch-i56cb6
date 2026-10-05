@@ -482,9 +482,9 @@
     var PAGES = [
       { t: "עמוד הבית", u: "index.html", k: "בית ראשי home" },
       { t: "השיטה: הסכמה, שאלה, הקשבה", u: "index.html#method", k: "method שיטה הסכמה שאלה הקשבה" },
-      { t: "איזה איש מכירות אתה? (השאלון)", u: "quiz.html", k: "quiz test typecast מבחן כושר טייפקאסט" },
+      { t: "איזה איש מכירות אתה? (השאלון)", u: "quiz.html", k: "quiz test typecast מבחן שאלון טייפקאסט כרטיס מיומנויות" },
       { t: "הספר הפוך גוטה", u: "index.html#gym", k: "book ספר הפוך גוטה מתנה" },
-      { t: "רשימת ההמתנה לחדר הכושר", u: "index.html#gym", k: "gym חדר כושר רשימה המתנה" },
+      { t: "רשימת ההמתנה למתחם האימונים", u: "index.html#gym", k: "gym hub מתחם אימונים רשימה המתנה" },
       { t: "מי אני", u: "index.html#about", k: "about אודות אבינועם" },
       { t: "אימון אישי בזום", u: "coaching.html", k: "work coaching אימון אישי זום" },
       { t: "לבעלי עסקים: סדנה ומערך הדרכה", u: "business.html", k: "managers business team workshop עסק מנהל סוכנות סדנה הדרכה צוות" },
