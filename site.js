@@ -486,12 +486,12 @@
       { t: "הספר הפוך גוטה", u: "index.html#gym", k: "book ספר הפוך גוטה מתנה" },
       { t: "רשימת ההמתנה לחדר הכושר", u: "index.html#gym", k: "gym חדר כושר רשימה המתנה" },
       { t: "מי אני", u: "index.html#about", k: "about אודות אבינועם" },
-      { t: "אימון אישי בזום", u: "index.html#coaching", k: "work coaching אימון אישי זום" },
-      { t: "לבעלי עסקים: סדנה ומערך הדרכה", u: "index.html#managers", k: "managers business team workshop עסק מנהל סוכנות סדנה הדרכה צוות" },
+      { t: "אימון אישי בזום", u: "coaching.html", k: "work coaching אימון אישי זום" },
+      { t: "לבעלי עסקים: סדנה ומערך הדרכה", u: "business.html", k: "managers business team workshop עסק מנהל סוכנות סדנה הדרכה צוות" },
       { t: "הצהרת נגישות", u: "accessibility.html", k: "accessibility נגישות" },
       { t: "מדיניות פרטיות", u: "privacy.html", k: "privacy פרטיות" },
       { t: "תנאי שימוש", u: "terms.html", k: "terms תנאים" }];
-    var SLUG = { "method": "index.html#method", "about": "index.html#about", "quiz": "quiz.html", "test": "quiz.html", "book": "index.html#gym", "gym": "index.html#gym", "work": "index.html#coaching", "coaching": "index.html#coaching", "managers": "index.html#managers", "business": "index.html#managers", "team": "index.html#managers", "privacy": "privacy.html", "terms": "terms.html", "accessibility": "accessibility.html" };
+    var SLUG = { "method": "index.html#method", "about": "index.html#about", "quiz": "quiz.html", "test": "quiz.html", "book": "index.html#gym", "gym": "index.html#gym", "work": "index.html#work", "coaching": "coaching.html", "managers": "business.html", "business": "business.html", "team": "business.html", "privacy": "privacy.html", "terms": "terms.html", "accessibility": "accessibility.html" };
     var path = decodeURIComponent(location.pathname).split("/").filter(Boolean).pop() || "";
     path = path.replace(/[.]html$/, "").toLowerCase();
     $("[data-shown]", nf).textContent = "/" + path;

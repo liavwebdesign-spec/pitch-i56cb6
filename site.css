@@ -602,7 +602,7 @@ body[data-page="index"] .ft { background: var(--gold); color: #3A3A3A; }
 .ft-legal nav { display: flex; flex-wrap: wrap; gap: 0 20px; }
 .ft-credit { margin-inline-start: auto; }
 /* the a11y button owns the end corner (left in RTL): the small print stops before it */
-@media (min-width: 768px) { .ft-legal { padding-inline-end: 72px; } }
+@media (min-width: 768px) { .ft-legal, .ft-nav { padding-inline-end: 72px; } } /* the nav row too: at 768 and 1024 the TikTok link sat under it (5.10.2026) */
 /* a short page still ends on its footer: main takes the free height */
 body { display: flex; flex-direction: column; min-height: 100svh; } #main { flex: 1 0 auto; }
 @media (max-width: 767px) {
@@ -640,6 +640,32 @@ html.bar-on .fabs { transform: translateY(-80px); }
 .mbar.is-on { transform: none; transition-timing-function: var(--e); }
 @media (min-width: 768px) { .mbar { display: none; } }
 .mb-go { flex: 1; min-width: 0; min-height: 52px; }
+
+/* ---------- the service pages, coaching and business (5.10.2026: the home page keeps two doors, each page carries the detail) ---------- */
+.gate-go { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; margin-top: auto; padding-top: 8px; }
+.gate .gate-go .link-arrow { margin-top: 0; }
+.svc-hero { padding-top: calc(var(--sec) + 64px); }
+.svc-hero h1 { max-width: 16ch; }
+.svc-hero .lead { max-width: var(--measure); }
+.svc-go { padding-top: 8px; }
+.svc-perks { max-width: var(--head-w); }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap-m); }
+.steps li { display: grid; gap: 16px; align-content: start; } /* no rule lines: the big number carries the step (board row 9) */
+.steps-n { font-family: var(--f-display); font-weight: 700; font-size: var(--fs-h2); line-height: 1; color: var(--gold-text); }
+.steps h3 { font-size: var(--fs-h3); font-weight: 500; margin: 0 0 8px; }
+.steps p { margin: 0; color: var(--muted-strong); max-width: 40ch; }
+.svc-method { margin: clamp(32px, 3vw, 56px) 0 0; max-width: var(--measure); color: var(--muted-strong); }
+.svc-form-in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 112px); align-items: start; }
+.svc-form-in .head { margin-bottom: 0; }
+.svc-hero .coach-grid { align-items: center; }
+.svc-hero-in { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(40px, 6vw, 112px); align-items: center; }
+.svc-pains { display: grid; gap: 24px; padding: var(--pad-card); border-radius: var(--r-card); background: var(--dark-2); }
+.svc-pains-h { font-size: var(--fs-h3); }
+.managers .perks li { color: var(--on-dark); }
+.svc-fit { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(32px, 5vw, 112px); align-items: start; }
+.svc-fit .head { margin-bottom: 0; }
+.svc-form-in .perks { margin-top: 16px; }
+@media (max-width: 1023px) { .steps, .svc-form-in, .svc-hero-in, .svc-fit { grid-template-columns: 1fr; } }
 
 /* ---------- inner pages ---------- */
 .page-sec { min-height: 80svh; padding: calc(var(--sec) + 64px) var(--gutter) var(--sec); background: var(--surface-muted); }
