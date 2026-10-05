@@ -343,9 +343,40 @@ section[id] { scroll-margin-top: 96px; }
 .chip-score b { font-weight: 500; }
 .chip-score small { font-size: var(--fs-small); color: var(--muted); }
 .hex figcaption { margin-top: 12px; text-align: end; font-size: var(--fs-small); color: var(--muted-dark); } /* the end side: the goal chip owns the start corner below the chart, and the longer caption ran under it at 1024 (5.10.2026) */
+/* the skills card, Avinoam's design of 5.10.2026 in place of the hexagon map: one card, the radar, the six bars, the skill to strengthen */
+.skc { width: min(100%, 460px); }
+.skc-card { display: grid; gap: 20px; padding: clamp(20px, 2vw, 28px); border-radius: var(--r-card); background: var(--dark-2); color: var(--on-dark); }
+.skc-top { display: flex; justify-content: space-between; align-items: center; font-size: var(--fs-small); color: var(--muted-dark); }
+.skc-logo { padding: 2px 12px; border-radius: 999px; background: var(--gold); color: var(--ink); font-weight: 700; }
+.skc-id { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.skc-name { margin: 0; font-family: var(--f-display); font-weight: 700; font-size: var(--fs-h3); line-height: 1.1; }
+.skc-type { margin: 4px 0 0; font-size: var(--fs-small); color: var(--muted-dark); }
+.skc-type b { color: var(--gold); font-weight: 500; }
+.skc-score { display: grid; justify-items: center; margin: 0; padding: 8px 14px; border-radius: 14px; background: rgba(244, 213, 78, .12); }
+.skc-score b { font-family: var(--f-display); font-weight: 700; font-size: var(--fs-h2); line-height: 1; color: var(--gold); }
+.skc-score span { font-size: 12px; color: var(--muted-dark); }
+.skc-radar { border-radius: 18px; background: rgba(0, 0, 0, .22); padding: 8px; }
+.skc .hex-labels text { font-size: 20px; }
+.skc .hex-labels text.val { display: none; } /* the numbers live in the bars below, as on his card */
+.skc-bars { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.skc-bars li { display: grid; grid-template-columns: 8.5em minmax(0, 1fr) 2em; align-items: center; gap: 12px; font-size: var(--fs-small); }
+.skc-track { height: 8px; border-radius: 8px; background: rgba(255, 255, 255, .12); overflow: hidden; }
+.skc-track i { display: block; height: 100%; border-radius: 8px; background: var(--gold); transform: scaleX(var(--v)); transform-origin: right; } /* RTL: fills from the start */
+.skc-bars .is-lo .skc-track i { background: var(--on-dark); }
+.skc-bars b { font-family: var(--f-display); font-weight: 700; text-align: end; }
+.skc-next { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px 20px; border-radius: 18px; background: rgba(255, 255, 255, .06); }
+.skc-k { margin: 0; font-size: 12px; color: var(--muted-dark); }
+.skc-skill { margin: 0; font-family: var(--f-display); font-weight: 700; font-size: clamp(20px, 1.2vw + 12px, 28px); line-height: 1.15; }
+.skc-next .btn { flex: none; white-space: nowrap; padding-inline: 18px; }
+.skc-next > div { min-width: 0; }
+.skc-skill { white-space: nowrap; }
+.skc-foot { margin: 0; text-align: center; font-size: 12px; color: var(--muted-dark); }
+.skc figcaption { text-align: center; }
+@media (max-width: 767px) { .skc .hex-labels text { font-size: 25px; } }
 @media (max-width: 1023px) {
   .quiz-grid { grid-template-columns: 1fr; }
   .hex { width: min(100%, 520px); }
+  .skc { width: min(100%, 460px); }
 }
 @media (max-width: 767px) {
   .hex { display: grid; gap: 8px; }
@@ -779,6 +810,19 @@ html.bar-on .fabs { transform: translateY(-80px); }
 .qz-book { width: 100%; }
 .qz-book-p { color: var(--muted-strong); max-width: var(--measure); }
 .qz-again { min-height: 44px; padding: 0; border: 0; background: none; font: inherit; font-size: var(--fs-small); color: var(--muted-strong); text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
+/* the quiz of 5.10.2026: his yellow card for the typecast and for the question to you, the dark panel for the calls and the tuning */
+.qz-badge { justify-self: start; margin: 0; padding: 4px 14px; border-radius: 999px; background: var(--gold); color: var(--ink); font-size: var(--fs-small); font-weight: 500; }
+.qz-hero, .qz-leak { display: grid; gap: 6px; padding: clamp(24px, 3vw, 40px); border-radius: var(--r-card); background: var(--gold); color: var(--ink); }
+.qz-hero-k { margin: 0; font-size: var(--fs-small); font-weight: 500; color: #3A3A3A; }
+.qz-hero .qz-name { margin: 0; }
+.qz-leak h3 { margin: 0 0 6px; font-family: var(--f-display); font-weight: 700; font-size: var(--fs-h2); line-height: 1.15; }
+.qz-leak p { margin: 0; max-width: var(--measure); }
+.qz-goal { margin: 0; font-family: var(--f-display); font-weight: 700; font-size: var(--fs-h2); line-height: 1.15; }
+.qz-sec[hidden] { display: none; }
+.qz-first { display: grid; gap: 2px; margin: 0; padding: 16px 24px; border-radius: var(--r-card); background: var(--surface-muted); color: var(--muted-strong); opacity: .7; }
+.qz-first span { font-size: var(--fs-small); }
+.qz-a.is-unk:not(.is-picked) { color: var(--muted-strong); }
+.qz-ask[hidden] { display: none; }
 @media (max-width: 767px) { .qz-mode, .qz-a { padding: 16px; } .qz-row { grid-template-columns: 6.5em minmax(0, 1fr) 2.8em; gap: 10px; } .qz-next .btn { width: 100%; } }
 @media (prefers-reduced-motion: reduce) { .js .qz-screen.is-on { animation: none; } .qz-track i, .qz-bar i { transition: none; } }
 .book-page .bk-in { max-width: clamp(760px, 64vw, 1240px); margin-inline: auto; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(32px, 5vw, 96px); align-items: center; }

@@ -173,11 +173,14 @@
       } else full();
     }
 
-    /* the signature: the six-muscle map builds with the scroll, the values counted at the pace of the scroll (MV:g14) */
+    /* the signature: Avinoam's skills card (5.10.2026, in place of the hexagon map): the radar builds with the scroll,
+       the values and the bars counted at the pace of the scroll (MV:g14) */
     var hex = $("[data-hex]");
     if (hex) {
       var svg = $("svg", hex), C = 220, R = 150;
-      var M = [["הסכמה", 72], ["שאלה", 86], ["הקשבה", 64], ["ידע", 58], ["אומץ לסגור", 38], ["זיהוי התנגדות", 60]];
+      var M = [["הסכמה", 82], ["אמפתיה", 74], ["שאלות עומק", 68], ["שיקוף לפני פתרון", 57], ["הבנת סאבטקסט", 63], ["אומץ סגירה", 41]];
+      var LO = Math.min.apply(null, M.map(function (m) { return m[1]; }));
+      var barEls = $$(".skc-bars li", hex).map(function (li) { return { fill: $(".skc-track i", li), val: $("b", li), v: +$("b", li).getAttribute("data-bar-val") }; });
       var pt = function (i, r) { var a = (-90 + i * 60) * Math.PI / 180; return [C + r * Math.cos(a), C + r * Math.sin(a)]; };
       var poly = function (r) { return M.map(function (_, i) { return pt(i, r).map(function (n) { return n.toFixed(1); }).join(","); }).join(" "); };
       var mk = function (tag, attrs, parent) { var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); parent.appendChild(e); return e; };
@@ -186,29 +189,23 @@
       var spokes = M.map(function (_, i) { var p = pt(i, R); return mk("line", { x1: C, y1: C, x2: p[0].toFixed(1), y2: p[1].toFixed(1) }, grid); });
       var dotEls = M.map(function () { return mk("circle", { r: 5, cx: C, cy: C }, dots); });
       var vals = M.map(function (m, i) {
-        var p = pt(i, R + (i % 3 ? 36 : 42)), up = i === 0 ? -8 : (i === 3 ? 10 : 0), lo = m[1] === 38 ? " is-lo" : "";
+        var p = pt(i, R + (i % 3 ? 36 : 42)), up = i === 0 ? -8 : (i === 3 ? 10 : 0), lo = m[1] === LO ? " is-lo" : "";
         var v = mk("text", { x: p[0].toFixed(1), y: (p[1] + up - 6).toFixed(1), "text-anchor": "middle", "class": "val" + lo }, labels); v.textContent = String(m[1]);
         var l = mk("text", { x: p[0].toFixed(1), y: (p[1] + up + 16).toFixed(1), "text-anchor": "middle", "class": lo.trim() }, labels); l.textContent = m[0];
-        // 3 · the muscle's icon on the reading side of its name (RTL: to the right of the centered name)
-        var w = l.getComputedTextLength ? l.getComputedTextLength() : 60;
-        var g = mk("g", { "class": "hex-ic" + lo, transform: "translate(" + (p[0] + w / 2 + 6).toFixed(1) + "," + (p[1] + up + 1).toFixed(1) + ") scale(.72)" }, labels);
-        g.innerHTML = MUSCLE[m[0]] || "";
         return v;
       });
       var draw6 = function (t) {
         shape.setAttribute("points", M.map(function (m, i) { return pt(i, R * m[1] / 100 * t).map(function (n) { return n.toFixed(1); }).join(","); }).join(" "));
         M.forEach(function (m, i) { var p = pt(i, R * m[1] / 100 * t); dotEls[i].setAttribute("cx", p[0].toFixed(1)); dotEls[i].setAttribute("cy", p[1].toFixed(1)); vals[i].textContent = String(Math.round(m[1] * t)); });
-        if (score) score.textContent = String(Math.round(63 * t));
+        if (score) score.textContent = String(Math.round(64 * t));
+        barEls.forEach(function (b) { b.fill.style.transform = "scaleX(" + (b.v / 100 * t).toFixed(3) + ")"; b.val.textContent = String(Math.round(b.v * t)); });
       };
       if (ok && window.DrawSVGPlugin) {
         var st = { t: 0 }; draw6(0);
-        var chips = $$(".chip", hex);
         var tl2 = G.timeline({ scrollTrigger: { trigger: hex, start: "top 85%", end: "center 42%", scrub: 0.5 } });
         tl2.from(rings, { scale: 0, svgOrigin: C + " " + C, opacity: 0, duration: 0.5, stagger: 0.08, ease: "power2.out" }, 0)
           .from(spokes, { drawSVG: "0% 0%", duration: 0.4, stagger: 0.05, ease: "none" }, 0.1)
-          .to(st, { t: 1, duration: 1, ease: "power2.out", onUpdate: function () { draw6(st.t); } }, 0.35)
-          .from(chips, { opacity: 0, y: 16, duration: 0.3, stagger: 0.1, ease: "power2.out" }, 1.1)
-          .from($$(".hex-ic path, .hex-ic circle", hex), { drawSVG: "0%", duration: 0.5, stagger: 0.03, ease: "power2.inOut" }, 0.9);
+          .to(st, { t: 1, duration: 1, ease: "power2.out", onUpdate: function () { draw6(st.t); } }, 0.35);
       } else draw6(1);
     }
 
